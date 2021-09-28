@@ -1,8 +1,8 @@
-#include "Application.hpp"
+#include "Game.hpp"
 
 int main()
 {
-	Application application();
-	
+	Game game();
+
 	return (0);
 }

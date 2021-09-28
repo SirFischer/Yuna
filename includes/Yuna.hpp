@@ -1,11 +1,3 @@
 #pragma once
 
-class Yuna
-{
-private:
-	/* data */
-public:
-	Yuna(/* args */);
-	~Yuna();
-};
-
+#include "core/Application.hpp"

@@ -20,9 +20,12 @@ endif
 
 .PHONY:		install_dep obj clean fclean all GEN_SOURCES test check
 
-all: install_dep $(OBJS) $(NAME)
+all: install_dep mfGUI.a $(OBJS) $(NAME)
 
 $(OBJS):	| obj
+
+mfGUI.a:
+	make -C mfGUI/.
 
 obj:
 	@echo "$(_BLUE)Creating object directories...$(_END)"

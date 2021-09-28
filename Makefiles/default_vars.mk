@@ -44,11 +44,11 @@ DEPS			:=	$(patsubst %.o,%.d,$(OBJS))
 
 UNAME			:=	$(shell uname -s)
 
-INC_DIRS		+=	
+INC_DIRS		+=	mfGUI/includes
 
 INC_DIRS		:= $(foreach d, $(INC_DIRS), -I $d)
 
-LIBDEP			:=	
+LIBDEP			:=	mfGUI/mfGUI.a
 
 
 # This is a minimal set of ANSI/VT100 color codes
