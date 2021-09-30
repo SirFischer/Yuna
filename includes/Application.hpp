@@ -6,11 +6,14 @@ namespace Yuna
 {
 	class Application
 	{
-	private:
-		Window	mWindow;
+	protected:
+		Core::Window	mWindow;
+		
 	public:
-		Application(/* args */);
+		Application();
 		~Application();
+
+		void	Run();
 	};
 } // namespace Yuna
 
