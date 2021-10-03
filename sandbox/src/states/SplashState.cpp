@@ -3,7 +3,7 @@
 SplashState::SplashState(/* args */)
 {
 	std::cout << "Instantiated the splash state" << std::endl;
-	mStateAction = Yuna::Core::eStateControls::NEXT_STATE;
+	mStateAction = Yuna::Core::eStateControls::REPLACE_STATE;
 	mNextState = 0;
 }
 
