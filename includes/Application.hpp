@@ -1,13 +1,15 @@
 #pragma once
 
-#include "Window.hpp"
+#include "core/Window.hpp"
+#include "core/stateManager/StateManager.hpp"
 
 namespace Yuna
 {
 	class Application
 	{
 	protected:
-		Core::Window	mWindow;
+		Core::Window		mWindow;
+		Core::StateManager	mStateManager;
 		
 	public:
 		Application();
