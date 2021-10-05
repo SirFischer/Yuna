@@ -6,7 +6,11 @@ class SplashState : public Yuna::Core::State
 private:
 	
 public:
-	SplashState(/* args */);
+	SplashState(Yuna::Core::Window* tWindow);
 	~SplashState();
+
+	void	HandleEvents();
+	void	Update();
+	void	Render();
 };
 

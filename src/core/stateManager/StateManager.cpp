@@ -4,8 +4,9 @@ namespace Yuna
 {
 	namespace Core
 	{
-		StateManager::StateManager(/* args */)
+		StateManager::StateManager(Window *tWindow)
 		{
+			mWindow = tWindow;
 		}
 
 		StateManager::~StateManager()
@@ -28,11 +29,11 @@ namespace Yuna
 					mStateStack.pop();
 				break;
 				case eStateControls::NEXT_STATE:
-					mStateStack.push(mStateFactory(nextState));
+					mStateStack.push(mStateFactory(nextState, mWindow));
 				break;
 				case eStateControls::REPLACE_STATE:
 					mStateStack.pop();
-					mStateStack.push(mStateFactory(nextState));
+					mStateStack.push(mStateFactory(nextState, mWindow));
 				break;
 				case eStateControls::EXIT:
 					while (mStateStack.size())
@@ -52,7 +53,7 @@ namespace Yuna
 
 		void	StateManager::SetEntryState(const uint8_t &tStateID)
 		{
-			mStateStack.push(mStateFactory(tStateID));
+			mStateStack.push(mStateFactory(tStateID, mWindow));
 		}
 
 		void	StateManager::Run()

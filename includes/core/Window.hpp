@@ -38,7 +38,7 @@ namespace Yuna
 			/**
 			 * Events
 			 **/
-			bool			HandleEvent(sf::Event &tEvent);
+			bool			PollEvent(sf::Event &tEvent);
 
 			/**
 			 * Setters

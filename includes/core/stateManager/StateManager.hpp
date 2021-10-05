@@ -14,18 +14,19 @@ namespace Yuna
 {
 	namespace Core
 	{
-		typedef std::function<std::unique_ptr<State>(uint8_t)> StateFactory;
+		typedef std::function<std::unique_ptr<State>(uint8_t, Window*)> StateFactory;
 		class StateManager
 		{
 		private:
 			std::stack<std::unique_ptr<State>>		mStateStack;
 
-			StateFactory			mStateFactory;
+			Window*									mWindow;
+			StateFactory							mStateFactory;
 
-			void					HandleStateAction();
+			void									HandleStateAction();
 
 		public:
-			StateManager();
+			StateManager(Window* tWindow);
 			~StateManager();
 
 			void					SetStateFactory(const StateFactory &tStateFactory);

@@ -57,7 +57,7 @@ namespace Yuna
 		/**
 		 * Events
 		 **/
-		bool	Window::HandleEvent(sf::Event &tEvent)
+		bool	Window::PollEvent(sf::Event &tEvent)
 		{
 			return (mWindow.pollEvent(tEvent));
 		}

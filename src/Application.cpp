@@ -3,6 +3,7 @@
 namespace Yuna
 {
 	Application::Application(/* args */)
+	:mStateManager(&mWindow)
 	{
 		
 	}

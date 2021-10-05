@@ -1,6 +1,7 @@
 #include "SplashState.hpp"
 
-SplashState::SplashState(/* args */)
+SplashState::SplashState(Yuna::Core::Window* tWindow)
+:State(tWindow)
 {
 	std::cout << "Instantiated the splash state" << std::endl;
 	mStateAction = Yuna::Core::eStateControls::REPLACE_STATE;
@@ -10,4 +11,20 @@ SplashState::SplashState(/* args */)
 SplashState::~SplashState()
 {
 	std::cout << "Destroyed the splash state" << std::endl;
+}
+
+void	SplashState::HandleEvents()
+{
+	mEventHandler.HandleEvent();
+}
+
+void	SplashState::Update()
+{
+
+}
+
+void	SplashState::Render()
+{
+	mWindow->Clear();
+	mWindow->Render();
 }

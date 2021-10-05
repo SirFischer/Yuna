@@ -1,5 +1,9 @@
 #pragma once
 #include "StateControls.hpp"
+#include "../Window.hpp"
+#include "../eventHandler/EventHandler.hpp"
+
+#include <SFML/System/Clock.hpp>
 
 #include <cstdint>
 
@@ -11,17 +15,32 @@ namespace Yuna
 		class State
 		{
 		protected:
+			Window*			mWindow;
+			EventHandler	mEventHandler;
 			eStateControls	mStateAction = eStateControls::PREVIOUS_STATE;
 			uint8_t			mNextState = 0;
+			bool			mActive = true;
+			float			mDeltaTime = 1.f / 60.f;
+			
 		public:
-			State(/* args */);
+			State(Window*	tWindow);
 			virtual ~State();
 
 			void			Run();
 
+			//Virtual functions (must be overidden)
+			virtual void	Render() = 0;
+			virtual void	Update() = 0;
+			virtual void	HandleEvents() = 0;
+
+			//Setters
+			void			SetDeltaTime(const float &tDeltaTime);
+
 			//Getters
 			eStateControls	GetStateAction() {return (mStateAction);}
 			uint8_t			GetNextState() {return (mNextState);}
+			float			GetDeltaTime() {return (mDeltaTime);}
+
 		};
 	} // namespace name
 } // namespace Yuna
