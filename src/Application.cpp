@@ -15,6 +15,7 @@ namespace Yuna
 	void	Application::Run()
 	{
 		mWindow.Create();
+		mStateManager.Run();
 	}
 
 } // namespace Yuna
