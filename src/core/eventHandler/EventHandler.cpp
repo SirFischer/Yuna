@@ -16,7 +16,10 @@ namespace Yuna
 		void		EventHandler::HandleEvent()
 		{
 			sf::Event event;
-			mWindow->PollEvent(event);
+			while (mWindow->PollEvent(event))
+			{
+				mf::GUI::HandleEvent(event);
+			}
 			//Handle event
 		}
 
