@@ -20,7 +20,8 @@ void	SplashState::HandleEvents()
 
 void	SplashState::Update()
 {
-
+	if (mDuration.getElapsedTime() > sf::seconds(5))
+		mActive = false;
 }
 
 void	SplashState::Render()
