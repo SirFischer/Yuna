@@ -17,6 +17,11 @@ MenuState::~MenuState()
 	std::cout << "Destroyed the menu state" << std::endl;
 }
 
+void	MenuState::Init()
+{
+	
+}
+
 void	MenuState::HandleEvents()
 {
 	mEventHandler.HandleEvent();

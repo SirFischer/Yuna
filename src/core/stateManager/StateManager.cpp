@@ -62,6 +62,7 @@ namespace Yuna
 				throw std::runtime_error("StateManager missing entry state");
 			while (!mStateStack.empty())
 			{
+				mStateStack.top()->Init();
 				mStateStack.top()->Run();
 				HandleStateAction();
 			}

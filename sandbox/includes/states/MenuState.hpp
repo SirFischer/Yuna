@@ -9,6 +9,7 @@ public:
 	MenuState(Yuna::Core::Window* tWindow);
 	~MenuState();
 
+	void	Init();
 	void	HandleEvents();
 	void	Update();
 	void	Render();

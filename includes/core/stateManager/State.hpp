@@ -21,17 +21,17 @@ namespace Yuna
 			uint8_t			mNextState = 0;
 			bool			mActive = true;
 			float			mDeltaTime = 1.f / 60.f;
-			
+
+			virtual void	Render() = 0;
+			virtual void	Update() = 0;
+			virtual void	HandleEvents() = 0;
 		public:
 			State(Window*	tWindow);
 			virtual ~State();
 
 			void			Run();
 
-			//Virtual functions (must be overidden)
-			virtual void	Render() = 0;
-			virtual void	Update() = 0;
-			virtual void	HandleEvents() = 0;
+			virtual void	Init() = 0;
 
 			//Setters
 			void			SetDeltaTime(const float &tDeltaTime);

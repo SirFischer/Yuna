@@ -19,9 +19,8 @@ namespace Yuna
 			while (mWindow->PollEvent(event))
 			{
 				mf::GUI::HandleEvent(event);
+				//Handle event
 			}
-			//Handle event
 		}
-
 	} // namespace Core
 } // namespace Yuna

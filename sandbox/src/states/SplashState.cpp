@@ -13,6 +13,11 @@ SplashState::~SplashState()
 	std::cout << "Destroyed the splash state" << std::endl;
 }
 
+void	SplashState::Init()
+{
+	
+}
+
 void	SplashState::HandleEvents()
 {
 	mEventHandler.HandleEvent();

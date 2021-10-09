@@ -9,6 +9,7 @@ public:
 	SplashState(Yuna::Core::Window* tWindow);
 	~SplashState();
 
+	void	Init();
 	void	HandleEvents();
 	void	Update();
 	void	Render();
