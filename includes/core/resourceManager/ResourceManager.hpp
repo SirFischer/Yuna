@@ -11,12 +11,14 @@ namespace Yuna
 		{
 		private:
 			AssetHandler<sf::Texture>	mTextures;
+			AssetHandler<sf::Font>		mFonts;
 
 		public:
 			ResourceManager(/* args */);
 			~ResourceManager();
 
 			std::shared_ptr<sf::Texture>		LoadTexture(std::string tPath);
+			std::shared_ptr<sf::Font>			LoadFont(std::string tPath);
 		};
 	} // namespace Core
 	
