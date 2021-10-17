@@ -1,6 +1,5 @@
 #pragma once
-
-#include "AssetHandler.hpp"
+#include <memory>
 #include <SFML/Graphics.hpp>
 
 namespace Yuna
@@ -10,8 +9,8 @@ namespace Yuna
 		class ResourceManager
 		{
 		private:
-			AssetHandler<sf::Texture>	mTextures;
-			AssetHandler<sf::Font>		mFonts;
+			std::unordered_map<std::string, std::shared_ptr<sf::Texture>>	mTextures;
+			std::unordered_map<std::string, std::shared_ptr<sf::Font>>		mFonts;
 
 		public:
 			ResourceManager(/* args */);

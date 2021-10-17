@@ -16,24 +16,24 @@ namespace Yuna
 		{
 			std::shared_ptr<sf::Texture>	ptr;
 			//checks if already exists
-			if ((ptr = mTextures.Load(tPath, std::shared_ptr<sf::Texture>(nullptr))))
-				return (ptr);
+			if (mTextures.count(tPath))
+				return (mTextures[tPath]);
 			//Loads texture
 			ptr = std::make_shared<sf::Texture>();
 			if (!ptr->loadFromFile(tPath))
 				throw std::runtime_error("Failed to load " + tPath);
-			return (mTextures.Load(tPath, ptr));
+			return ((mTextures[tPath] = ptr));
 		}
 
 		std::shared_ptr<sf::Font>			ResourceManager::LoadFont(std::string tPath)
 		{
 			std::shared_ptr<sf::Font>	ptr;
-			if ((ptr = mFonts.Load(tPath, std::shared_ptr<sf::Font>(nullptr))))
-				return (ptr);
+			if (mFonts.count(tPath))
+				return (mFonts[tPath]);
 			ptr = std::make_shared<sf::Font>();
 			if (!ptr->loadFromFile(tPath))
 				throw std::runtime_error("Failed to load " + tPath);
-			return (mFonts.Load(tPath, ptr));
+			return ((mFonts[tPath] = ptr));
 		}
 
 

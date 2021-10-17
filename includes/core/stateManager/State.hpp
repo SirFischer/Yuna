@@ -2,6 +2,7 @@
 #include "StateControls.hpp"
 #include "../Window.hpp"
 #include "../eventHandler/EventHandler.hpp"
+#include "../resourceManager/ResourceManager.hpp"
 
 #include <SFML/System/Clock.hpp>
 
@@ -17,6 +18,7 @@ namespace Yuna
 		protected:
 			Window*			mWindow;
 			EventHandler	mEventHandler;
+			ResourceManager	mResourceManager;
 			eStateControls	mStateAction = eStateControls::PREVIOUS_STATE;
 			uint8_t			mNextState = 0;
 			bool			mActive = true;
