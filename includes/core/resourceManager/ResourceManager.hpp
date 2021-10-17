@@ -10,6 +10,7 @@ namespace Yuna
 		{
 		private:
 			std::unordered_map<std::string, std::shared_ptr<sf::Texture>>	mTextures;
+			std::unordered_map<std::string, std::shared_ptr<sf::Image>>		mImages;
 			std::unordered_map<std::string, std::shared_ptr<sf::Font>>		mFonts;
 
 		public:
@@ -17,6 +18,7 @@ namespace Yuna
 			~ResourceManager();
 
 			std::shared_ptr<sf::Texture>		LoadTexture(std::string tPath);
+			std::shared_ptr<sf::Image>			LoadImage(std::string tPath);
 			std::shared_ptr<sf::Font>			LoadFont(std::string tPath);
 		};
 	} // namespace Core
