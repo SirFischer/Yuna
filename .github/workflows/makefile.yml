@@ -14,6 +14,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: remove git-lfs
+        shell: bash
+        run: |
+          cat /etc/apt/sources.list
+          ls /etc/apt/sources.list.d
+          sudo rm /etc/apt/sources.list.d/github_git-lfs.list
+          sudo rm /etc/apt/sources.list.d/github_git-lfs.list.save
+
+
     - name: Checkout submodules
       run: git submodule update --init --recursive
 
