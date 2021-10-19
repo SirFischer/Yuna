@@ -24,7 +24,11 @@ void	MenuState::Init()
 
 void	MenuState::HandleEvents()
 {
-	mEventHandler.HandleEvent();
+	sf::Event event;
+	while (mWindow->PollEvent(event))
+	{
+		mEventHandler.HandleEvent(event);
+	}
 }
 
 void	MenuState::Update()

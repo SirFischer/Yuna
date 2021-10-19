@@ -20,7 +20,11 @@ void	SplashState::Init()
 
 void	SplashState::HandleEvents()
 {
-	mEventHandler.HandleEvent();
+	sf::Event event;
+	while (mWindow->PollEvent(event))
+	{
+		mEventHandler.HandleEvent(event);
+	}
 }
 
 void	SplashState::Update()
