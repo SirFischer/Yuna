@@ -45,6 +45,14 @@ namespace Yuna
 			 **/
 			void			SetSize(const sf::Vector2i &tSize);
 			void			SetTitle(const std::string &tTitle);
+
+			/**
+			 * Camera
+			 **/
+			void			SetView(sf::View tView);
+			void			SetDefaultView();
+			bool			IsOpen(){return (mWindow.isOpen());}
+			void			ResetView(bool tResize);
 		};
 	} // namespace core
 } // namespace Yuna
