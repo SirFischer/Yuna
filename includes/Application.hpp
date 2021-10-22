@@ -2,6 +2,7 @@
 
 #include "core/Window.hpp"
 #include "core/stateManager/StateManager.hpp"
+#include "core/console/Console.hpp"
 
 namespace Yuna
 {
