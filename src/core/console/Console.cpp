@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Friday, 22nd October 2021 12:12:10 pm
+ * Last Modified: Friday, 22nd October 2021 1:55:03 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -99,13 +99,13 @@ namespace Yuna
 			{
 				mProccessing = false;
 				std::string command = mConsoleInputBox->GetString();
-				command.pop_back();
+				if (command.back() == '\n')
+					command.pop_back();
 				time_t	currentTime = time(NULL);
 				std::tm	*ltm = localtime(&currentTime);
 				Console::AddString(((ltm->tm_hour <= 9) ? "0" : "") + std::to_string(ltm->tm_hour) + ":" +
 									((ltm->tm_min <= 9) ? "0" : "") + std::to_string(ltm->tm_min) + ":" +
 									((ltm->tm_sec <= 9) ? "0" : "") + std::to_string(ltm->tm_sec) + " - " + command);
-				//Execute command
 				ProcessCommand(command);
 				mConsoleInputBox->SetText("");
 				Console::AddString("");
@@ -124,7 +124,8 @@ namespace Yuna
 
 		void		Console::ProcessConsoleCommand()
 		{
-			mProccessing = true;
+			if (mConsoleInputBox->IsFocus())
+				mProccessing = true;
 		}
 
 
