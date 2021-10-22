@@ -1,8 +1,8 @@
-#include "Game.hpp"
+#include "Sandbox.hpp"
 
 int main()
 {
-	Game game;
+	Sandbox game;
 
 	game.Run();
 

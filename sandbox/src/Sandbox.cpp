@@ -1,4 +1,4 @@
-#include "Game.hpp"
+#include "Sandbox.hpp"
 
 std::unique_ptr<Yuna::Core::State>	stateFactory(uint8_t tID, Yuna::Core::Window* tWindow)
 {
@@ -16,13 +16,13 @@ std::unique_ptr<Yuna::Core::State>	stateFactory(uint8_t tID, Yuna::Core::Window*
 	return (nullptr);
 }
 
-Game::Game(/* args */)
+Sandbox::Sandbox(/* args */)
 {
 	mWindow.SetTitle("Sandbox");
 	mStateManager.SetStateFactory(stateFactory);
 	mStateManager.SetEntryState(1);
 }
 
-Game::~Game()
+Sandbox::~Sandbox()
 {
 }

@@ -3,12 +3,12 @@
 #include "MenuState.hpp"
 #include "SplashState.hpp"
 
-class Game : public Yuna::Application
+class Sandbox : public Yuna::Application
 {
 private:
 	/* data */
 public:
-	Game(/* args */);
-	~Game();
+	Sandbox(/* args */);
+	~Sandbox();
 };
 
