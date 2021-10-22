@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Friday, 22nd October 2021 11:48:16 am
+ * Last Modified: Friday, 22nd October 2021 12:12:10 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -19,6 +19,7 @@ namespace Yuna
 		mf::Container									*Console::mConsoleWidget = NULL;
 		mf::Text										*Console::mConsoleTextBox = NULL;
 		mf::Text										*Console::mConsoleInputBox = NULL;
+		bool											Console::mProccessing = false;
 
 		std::map<std::string, Console::sCommand>		Console::mCommands = std::map<std::string, Console::sCommand>();
 
