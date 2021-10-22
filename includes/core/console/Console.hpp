@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:29:46 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Friday, 22nd October 2021 11:48:39 am
+ * Last Modified: Friday, 22nd October 2021 12:20:07 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -68,7 +68,7 @@ namespace Yuna
 			static void AddCommand(sCommand tCommand, const std::string &tCommandName);
 
 			static eCommandStatus ProcessCommand(std::string tCommand);
-			void		ProcessConsoleCommand();
+			static void	ProcessConsoleCommand();
 
 			static void Update();
 
