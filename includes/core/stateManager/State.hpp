@@ -3,6 +3,7 @@
 #include "../Window.hpp"
 #include "../eventHandler/EventHandler.hpp"
 #include "../resourceManager/ResourceManager.hpp"
+#include "../console/Console.hpp"
 
 #include <SFML/System/Clock.hpp>
 
