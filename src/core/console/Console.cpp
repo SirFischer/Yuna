@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Friday, 22nd October 2021 1:55:03 pm
+ * Last Modified: Saturday, 23rd October 2021 5:26:27 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -61,6 +61,8 @@ namespace Yuna
 		void		Console::ToggleConsole()
 		{
 			mConsoleWidget->SetDisabled(!mConsoleWidget->IsDisabled());
+			if (!mConsoleWidget->IsDisabled())
+				mConsoleInputBox->SetFocus(true);
 		}
 
 		void		Console::AddCommand(sCommand tCommand, const std::string &tCommandName)
