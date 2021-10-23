@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Saturday, 23rd October 2021 5:26:27 pm
+ * Last Modified: Saturday, 23rd October 2021 5:39:05 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -42,6 +42,7 @@ namespace Yuna
 			->SetPositionPercentage(true, true)->SetPosition(1, 1)
 			->SetBackgroundColor(sf::Color(37, 37, 37, 200))
 			->SetOutlineColor(sf::Color(100, 100, 100, 255))->SetOutlineThickness(1)
+			->SetTextPosition(sf::Vector2f(5, 5))
 			->SetCharacterSize(14);
 			mConsoleTextBox->GetScrollBar()->SetBackgroundColor(sf::Color(37, 37, 37, 200))
 			->GetButton()->SetBackground(sf::Color(160, 160, 160, 160))
@@ -54,6 +55,7 @@ namespace Yuna
 			->SetBackgroundColor(sf::Color(37, 37, 37, 200))
 			->SetOutlineColor(sf::Color(100, 100, 100, 255))
 			->SetOutlineThickness(1)->SetCharacterSize(12)
+			->SetTextPosition(sf::Vector2f(5, 5))
 			->EnableEdit();
 			mConsoleWidget->AddWidget(mConsoleInputBox);
 		}
