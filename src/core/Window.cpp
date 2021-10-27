@@ -83,6 +83,11 @@ namespace Yuna
 			mWindow.setView(tView);	
 		}
 
+		void	Window::GetView()
+		{
+			mWindow.getView();
+		}
+
 		void	Window::SetDefaultView()
 		{
 			sf::View	defaultView;
