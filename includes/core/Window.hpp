@@ -50,7 +50,7 @@ namespace Yuna
 			 * Camera
 			 **/
 			void			SetView(sf::View tView);
-			void			GetView();
+			sf::View		GetView();
 			void			SetDefaultView();
 			bool			IsOpen(){return (mWindow.isOpen());}
 			void			ResetView(bool tResize);
