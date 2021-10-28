@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Saturday, 23rd October 2021 5:39:05 pm
+ * Last Modified: Thursday, 28th October 2021 6:27:10 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -20,6 +20,8 @@ namespace Yuna
 		mf::Text										*Console::mConsoleTextBox = NULL;
 		mf::Text										*Console::mConsoleInputBox = NULL;
 		bool											Console::mProccessing = false;
+		size_t											Console::mHistorySize = 20;
+		int												Console::mHistoryIndex = 0;
 
 		std::map<std::string, Console::sCommand>		Console::mCommands = std::map<std::string, Console::sCommand>();
 
@@ -64,7 +66,11 @@ namespace Yuna
 		{
 			mConsoleWidget->SetDisabled(!mConsoleWidget->IsDisabled());
 			if (!mConsoleWidget->IsDisabled())
+			{
+				mHistoryIndex = 0;
 				mConsoleInputBox->SetFocus(true);
+				mConsoleInputBox->SetText("");
+			}
 		}
 
 		void		Console::AddCommand(sCommand tCommand, const std::string &tCommandName)
@@ -79,6 +85,9 @@ namespace Yuna
 			std::stringstream			ss(tCommand);
 			std::string					command;
 			std::string					tmp;
+			mHistory.push_front(tCommand);
+			if (mHistory.size() > mHistorySize)
+				mHistory.pop_back();
 			ss >> command;
 			while (ss >> tmp)
 			{
@@ -110,7 +119,17 @@ namespace Yuna
 				Console::AddString(((ltm->tm_hour <= 9) ? "0" : "") + std::to_string(ltm->tm_hour) + ":" +
 									((ltm->tm_min <= 9) ? "0" : "") + std::to_string(ltm->tm_min) + ":" +
 									((ltm->tm_sec <= 9) ? "0" : "") + std::to_string(ltm->tm_sec) + " - " + command);
-				ProcessCommand(command);
+				switch(ProcessCommand(command))
+				{
+					case eCommandStatus::BAD_ARGUMENTS:
+						Console::AddString("Bad arguments, read help manual for how to use this command...");
+					break;
+					case eCommandStatus::FAILURE:
+						Console::AddString("This command failed to execute...");
+					break;
+					default:
+					break;
+				}
 				mConsoleInputBox->SetText("");
 				Console::AddString("");
 			}
@@ -130,6 +149,22 @@ namespace Yuna
 		{
 			if (mConsoleInputBox->IsFocus())
 				mProccessing = true;
+		}
+
+		void Console::GetNextInCommandHistory()
+		{
+			mHistoryIndex++;
+			if (mHistoryIndex >= (int)mHistory.size())
+				mHistoryIndex = 0;
+			mConsoleInputBox->SetText(mHistory[mHistoryIndex]);
+		}
+
+		void Console::GetPreviousInCommandHistory()
+		{
+			mHistoryIndex--;
+			if (mHistoryIndex < 0)
+				mHistoryIndex = 0;
+			mConsoleInputBox->SetText(mHistory[mHistoryIndex]);
 		}
 
 

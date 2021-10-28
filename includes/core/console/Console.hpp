@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:29:46 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Friday, 22nd October 2021 12:20:07 pm
+ * Last Modified: Thursday, 28th October 2021 6:26:34 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -15,6 +15,7 @@
 #include <map>
 #include <vector>
 #include <sstream>
+#include <deque>
 
 #include "mfGUI.hpp"
 
@@ -56,7 +57,10 @@ namespace Yuna
 			 * Data
 			 **/
 			static bool mProccessing;
-			static std::map<std::string, sCommand> mCommands;
+			static std::map<std::string, sCommand>	mCommands;
+			static std::deque<std::string>			mHistory;
+			static size_t							mHistorySize;
+			static int								mHistoryIndex;
 
 			static void LoadInternalCommands();
 
@@ -74,6 +78,9 @@ namespace Yuna
 
 			static void AddString(const std::string &tMessage);
 			static void ClearConsole();
+
+			static void GetNextInCommandHistory();
+			static void GetPreviousInCommandHistory();
 
 			/**
 	 		* GETTERS
