@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Thursday, 28th October 2021 6:27:10 am
+ * Last Modified: Thursday, 28th October 2021 6:35:19 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -20,6 +20,7 @@ namespace Yuna
 		mf::Text										*Console::mConsoleTextBox = NULL;
 		mf::Text										*Console::mConsoleInputBox = NULL;
 		bool											Console::mProccessing = false;
+		std::deque<std::string>							Console::mHistory = std::deque<std::string>();
 		size_t											Console::mHistorySize = 20;
 		int												Console::mHistoryIndex = 0;
 
