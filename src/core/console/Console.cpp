@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Thursday, 28th October 2021 6:35:19 am
+ * Last Modified: Thursday, 28th October 2021 6:43:12 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -68,7 +68,7 @@ namespace Yuna
 			mConsoleWidget->SetDisabled(!mConsoleWidget->IsDisabled());
 			if (!mConsoleWidget->IsDisabled())
 			{
-				mHistoryIndex = 0;
+				mHistoryIndex = -1;
 				mConsoleInputBox->SetFocus(true);
 				mConsoleInputBox->SetText("");
 			}
@@ -125,9 +125,6 @@ namespace Yuna
 					case eCommandStatus::BAD_ARGUMENTS:
 						Console::AddString("Bad arguments, read help manual for how to use this command...");
 					break;
-					case eCommandStatus::FAILURE:
-						Console::AddString("This command failed to execute...");
-					break;
 					default:
 					break;
 				}
@@ -156,7 +153,7 @@ namespace Yuna
 		{
 			mHistoryIndex++;
 			if (mHistoryIndex >= (int)mHistory.size())
-				mHistoryIndex = 0;
+				mHistoryIndex = mHistory.size() - 1;
 			mConsoleInputBox->SetText(mHistory[mHistoryIndex]);
 		}
 
