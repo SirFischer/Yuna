@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Thursday, 28th October 2021 6:43:12 am
+ * Last Modified: Friday, 29th October 2021 7:27:37 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -151,6 +151,8 @@ namespace Yuna
 
 		void Console::GetNextInCommandHistory()
 		{
+			if (!mHistory.size())
+				return ;
 			mHistoryIndex++;
 			if (mHistoryIndex >= (int)mHistory.size())
 				mHistoryIndex = mHistory.size() - 1;
@@ -159,6 +161,8 @@ namespace Yuna
 
 		void Console::GetPreviousInCommandHistory()
 		{
+			if (!mHistory.size())
+				return ;
 			mHistoryIndex--;
 			if (mHistoryIndex < 0)
 				mHistoryIndex = 0;
