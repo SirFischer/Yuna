@@ -47,6 +47,11 @@ namespace Yuna
 			void			SetTitle(const std::string &tTitle);
 
 			/**
+			 * Getters
+			 **/
+			sf::Vector2u	GetSize(){return (mWindow.getSize());}
+
+			/**
 			 * Camera
 			 **/
 			void			SetView(sf::View tView);
