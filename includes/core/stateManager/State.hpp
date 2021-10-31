@@ -23,6 +23,8 @@ namespace Yuna
 			uint8_t			mNextState = 0;
 			bool			mActive = true;
 			float			mDeltaTime = 1.f / 60.f;
+			float			mFPSSmoothing = 0.9;
+			float			mFPS = 0;
 
 			virtual void	Render() = 0;
 			virtual void	Update() = 0;
