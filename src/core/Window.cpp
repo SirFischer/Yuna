@@ -38,6 +38,12 @@ namespace Yuna
 			mWindow.draw(tDrawable);
 		}
 
+		void	Window::Draw(sf::Vertex *tVertex, size_t tSize, sf::PrimitiveType tType)
+		{
+			mWindow.draw(tVertex, tSize, tType);
+		}
+
+
 		void	Window::Clear()
 		{
 			Clear(sf::Color::Black);

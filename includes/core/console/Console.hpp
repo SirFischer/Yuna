@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:29:46 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Thursday, 28th October 2021 6:26:34 am
+ * Last Modified: Thursday, 4th November 2021 7:10:08 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -16,8 +16,10 @@
 #include <vector>
 #include <sstream>
 #include <deque>
+#include <fstream>
 
 #include "mfGUI.hpp"
+#include "../eventHandler/EventHandler.hpp"
 
 namespace Yuna
 {
@@ -62,9 +64,16 @@ namespace Yuna
 			static size_t							mHistorySize;
 			static int								mHistoryIndex;
 
+			
+
 			static void LoadInternalCommands();
 
 		public:
+			/**
+			 * Dependencies
+			 **/
+			static EventHandler						*mEventHandler;
+			
 			static void Init();
 			static void InitUI();
 			static void ToggleConsole();
@@ -72,6 +81,7 @@ namespace Yuna
 			static void AddCommand(sCommand tCommand, const std::string &tCommandName);
 
 			static eCommandStatus ProcessCommand(std::string tCommand);
+			static eCommandStatus ProcessFile(const std::string &tFileName);
 			static void	ProcessConsoleCommand();
 
 			static void Update();

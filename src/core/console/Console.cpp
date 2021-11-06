@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Friday, 29th October 2021 7:27:37 am
+ * Last Modified: Thursday, 4th November 2021 7:04:53 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -23,6 +23,7 @@ namespace Yuna
 		std::deque<std::string>							Console::mHistory = std::deque<std::string>();
 		size_t											Console::mHistorySize = 20;
 		int												Console::mHistoryIndex = 0;
+		EventHandler									*Console::mEventHandler = NULL;
 
 		std::map<std::string, Console::sCommand>		Console::mCommands = std::map<std::string, Console::sCommand>();
 
@@ -101,6 +102,36 @@ namespace Yuna
 			else
 			{
 				Console::AddString(command + " is not a valid command!");
+				return (eCommandStatus::FAILURE);
+			}
+		}
+
+		Console::eCommandStatus		Console::ProcessFile(const std::string &tFileName)
+		{
+			std::ifstream				file(tFileName);
+			std::string					line;
+			bool						comment = false;
+			if (file.is_open())
+			{
+				while (std::getline(file, line))
+				{
+					if (line.find("/*"))
+						comment = true;
+					if (comment)
+					{
+						if (line.find("*/"))
+							comment = false;
+						else
+							continue;
+					}
+					ProcessCommand(line);
+				}
+				file.close();
+				return (eCommandStatus::SUCCESS);
+			}
+			else
+			{
+				Console::AddString("Failed to open file: " + tFileName);
 				return (eCommandStatus::FAILURE);
 			}
 		}

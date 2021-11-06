@@ -31,6 +31,7 @@ namespace Yuna
 			 * Drawing Utilities
 			 **/
 			void			Draw(sf::Drawable &tDrawable);
+			void			Draw(sf::Vertex *tVertex, size_t tSize, sf::PrimitiveType tType);
 			void			Clear();
 			void			Clear(const sf::Color &tColor);
 			void			Render();
@@ -50,6 +51,7 @@ namespace Yuna
 			 * Getters
 			 **/
 			sf::Vector2u	GetSize(){return (mWindow.getSize());}
+			sf::Vector2i	GetRelativeMousePos(){return (sf::Mouse::getPosition(mWindow));}
 
 			/**
 			 * Camera

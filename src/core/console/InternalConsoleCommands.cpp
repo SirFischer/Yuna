@@ -4,13 +4,14 @@
  * File Created: Thursday, 4th March 2021 6:11:44 pm
  * Author: Marek Fischer
  * -----
- * Last Modified: Friday, 22nd October 2021 11:07:16 am
+ * Last Modified: Thursday, 4th November 2021 7:09:15 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic, Deep Vertic
  */
 
 #include "Console.hpp"
+
 namespace Yuna
 {
 	namespace Core
@@ -42,6 +43,22 @@ namespace Yuna
 		{
 			(void)tParams;
 			Console::ClearConsole();
+			return (Console::eCommandStatus::SUCCESS);
+		}
+
+		Console::eCommandStatus BindKey(const std::vector<std::string> &tParams)
+		{
+			if (!Console::mEventHandler)
+			{
+				Console::AddString("No event handler set!");
+				return (Console::eCommandStatus::FAILURE);
+			}
+			if (tParams.size() != 2)
+			{
+				Console::AddString("Usage: bindkey <key> <command>");
+				return (Console::eCommandStatus::BAD_ARGUMENTS);
+			}
+			//Implement key binding dictionary
 			return (Console::eCommandStatus::SUCCESS);
 		}
 
