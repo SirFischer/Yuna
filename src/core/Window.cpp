@@ -6,6 +6,7 @@ namespace Yuna
 	{
 		Window::Window(/* args */)
 		{
+			mf::GUI::Init(&mWindow);
 		}
 
 		Window::~Window()
@@ -21,7 +22,6 @@ namespace Yuna
 			auto isFullscreen = (mFullscreen) ? sf::Style::Fullscreen : sf::Style::Default;
 			sf::VideoMode	mode(mSize.x, mSize.y);
 			mWindow.create(mode, mTitle, isFullscreen);
-			mf::GUI::Init(&mWindow);
 		}
 
 		void	Window::Destroy()
@@ -83,6 +83,13 @@ namespace Yuna
 		{
 			mTitle = tTitle;
 		}
+
+		void	Window::SetFullscreen(const bool &tFullscreen)
+		{
+			mFullscreen = tFullscreen;
+			Create();
+		}
+
 
 		void	Window::SetView(sf::View tView)
 		{

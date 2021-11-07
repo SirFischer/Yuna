@@ -46,12 +46,15 @@ namespace Yuna
 			 **/
 			void			SetSize(const sf::Vector2i &tSize);
 			void			SetTitle(const std::string &tTitle);
+			void			SetFullscreen(const bool &tFullscreen);
 
 			/**
 			 * Getters
 			 **/
-			sf::Vector2u	GetSize(){return (mWindow.getSize());}
-			sf::Vector2i	GetRelativeMousePos(){return (sf::Mouse::getPosition(mWindow));}
+			sf::Vector2u		GetSize(){return (mWindow.getSize());}
+			sf::Vector2i		GetRelativeMousePos(){return (sf::Mouse::getPosition(mWindow));}
+			sf::RenderWindow*	GetRenderWindow(){return (&mWindow);}
+			bool				IsFullscreen(){return (mFullscreen);}
 
 			/**
 			 * Camera
