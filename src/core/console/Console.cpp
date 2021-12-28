@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Thursday, 4th November 2021 7:04:53 am
+ * Last Modified: Tuesday, 28th December 2021 6:35:47 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -41,8 +41,9 @@ namespace Yuna
 			mConsoleWidget->SetBackground(sf::Color(57, 57, 57, 200));
 			mf::GUI::AddWidget(mConsoleWidget);
 
-			mConsoleTextBox = mf::Text::Create("assets/fonts/FiraCode-VariableFont_wght.ttf", "");
+			mConsoleTextBox = mf::Text::Create();
 			mConsoleTextBox->SetSizePercentage(true, true)->SetSize(98, 85)
+			->SetTextFont("assets/fonts/FiraCode-VariableFont_wght.ttf")
 			->SetPositionPercentage(true, true)->SetPosition(1, 1)
 			->SetBackgroundColor(sf::Color(37, 37, 37, 200))
 			->SetOutlineColor(sf::Color(100, 100, 100, 255))->SetOutlineThickness(1)
@@ -53,8 +54,9 @@ namespace Yuna
 			->SetHoverBackground(sf::Color(100, 100, 120, 160));
 			mConsoleWidget->AddWidget(mConsoleTextBox);
 
-			mConsoleInputBox = mf::Text::Create("assets/fonts/FiraCode-VariableFont_wght.ttf", "");
+			mConsoleInputBox = mf::Text::Create();
 			mConsoleInputBox->SetSizePercentage(true, false)->SetSize(98, 30)
+			->SetTextFont("assets/fonts/FiraCode-VariableFont_wght.ttf")
 			->SetPositionPercentage(true, true)->SetPosition(1, 90)
 			->SetBackgroundColor(sf::Color(37, 37, 37, 200))
 			->SetOutlineColor(sf::Color(100, 100, 100, 255))
