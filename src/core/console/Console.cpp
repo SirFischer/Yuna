@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Tuesday, 28th December 2021 6:35:47 am
+ * Last Modified: Saturday, 1st January 2022 9:31:59 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -50,8 +50,7 @@ namespace Yuna
 			->SetTextPosition(sf::Vector2f(5, 5))
 			->SetCharacterSize(14);
 			mConsoleTextBox->GetScrollBar()->SetBackgroundColor(sf::Color(37, 37, 37, 200))
-			->GetButton()->SetBackground(sf::Color(160, 160, 160, 160))
-			->SetHoverBackground(sf::Color(100, 100, 120, 160));
+			->GetButton()->SetBackground(sf::Color(160, 160, 160, 160));
 			mConsoleWidget->AddWidget(mConsoleTextBox);
 
 			mConsoleInputBox = mf::Text::Create();
