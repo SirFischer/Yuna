@@ -4,7 +4,7 @@
  * File Created: Saturday, 9th October 2021 10:19:03 pm
  * Author: Marek Fischer
  * -----
- * Last Modified: Tuesday, 19th October 2021 10:17:42 pm
+ * Last Modified: Saturday, 1st January 2022 9:56:02 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -17,56 +17,57 @@ namespace Yuna
 	{
 		EventHandler::EventHandler()
 		{
+			InitBindingNames();
 		}
 
 		EventHandler::~EventHandler()
 		{
 		}
 
-		void EventHandler::HandleEvent(sf::Event &tEvent)
+		void EventHandler::HandleEvent(sf::Event &pEvent)
 		{
-			mf::GUI::HandleEvent(tEvent);
-			switch (tEvent.type)
+			mf::GUI::HandleEvent(pEvent);
+			switch (pEvent.type)
 			{
 			case sf::Event::KeyPressed:
-				if (mBindingMap.count(tEvent.key.code))
-					mEventStates[mBindingMap[tEvent.key.code]] = true;
+				if (mBindingMap.count(pEvent.key.code))
+					mEventStates[mBindingMap[pEvent.key.code]] = true;
 				break;
 			case sf::Event::KeyReleased:
-				if (mBindingMap.count(tEvent.key.code))
-					mEventStates[mBindingMap[tEvent.key.code]] = false;
+				if (mBindingMap.count(pEvent.key.code))
+					mEventStates[mBindingMap[pEvent.key.code]] = false;
 				break;
 			case sf::Event::MouseButtonPressed:
-				if (mBindingMap.count(tEvent.key.code + EVENTHANDLER_BUTTON_OFFSET))
-					mEventStates[mBindingMap[tEvent.key.code + EVENTHANDLER_BUTTON_OFFSET]] = true;
+				if (mBindingMap.count(pEvent.key.code + EVENTHANDLER_BUTTON_OFFSET))
+					mEventStates[mBindingMap[pEvent.key.code + EVENTHANDLER_BUTTON_OFFSET]] = true;
 				break;
 			case sf::Event::MouseButtonReleased:
-				if (mBindingMap.count(tEvent.key.code + EVENTHANDLER_BUTTON_OFFSET))
-					mEventStates[mBindingMap[tEvent.key.code + EVENTHANDLER_BUTTON_OFFSET]] = false;
+				if (mBindingMap.count(pEvent.key.code + EVENTHANDLER_BUTTON_OFFSET))
+					mEventStates[mBindingMap[pEvent.key.code + EVENTHANDLER_BUTTON_OFFSET]] = false;
 				break;
 			default:
 				break;
 			}
 		}
 
-		void EventHandler::BindKey(sf::Keyboard::Key tKey, uint32_t tEvent)
+		void EventHandler::BindKey(sf::Keyboard::Key pKey, uint32_t pEvent)
 		{
-			mBindingMap[(u_int32_t)tKey] = tEvent;
+			mBindingMap[(u_int32_t)pKey] = pEvent;
 		}
 
-		void EventHandler::BindButton(sf::Mouse::Button tButton, uint32_t tEvent)
+		void EventHandler::BindButton(sf::Mouse::Button pButton, uint32_t pEvent)
 		{
-			mBindingMap[((u_int32_t)tButton) + EVENTHANDLER_BUTTON_OFFSET] = tEvent;
+			mBindingMap[((u_int32_t)pButton) + EVENTHANDLER_BUTTON_OFFSET] = pEvent;
 		}
 
-		void EventHandler::SetEventState(uint32_t tEvent, bool tState)
+		void EventHandler::SetEventState(uint32_t pEvent, bool pState)
 		{
-			mEventStates[tEvent] = tState;
+			mEventStates[pEvent] = pState;
 		}
 
-		bool EventHandler::GetEventState(uint32_t tEvent)
+		bool EventHandler::GetEventState(uint32_t pEvent)
 		{
-			return (mEventStates[tEvent]);
+			return (mEventStates[pEvent]);
 		}
 	} // namespace Core
 } // namespace Yuna

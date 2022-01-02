@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:29:46 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Thursday, 4th November 2021 7:10:08 am
+ * Last Modified: Sunday, 2nd January 2022 7:38:54 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -64,8 +64,6 @@ namespace Yuna
 			static size_t							mHistorySize;
 			static int								mHistoryIndex;
 
-			
-
 			static void LoadInternalCommands();
 
 		public:
@@ -73,6 +71,7 @@ namespace Yuna
 			 * Dependencies
 			 **/
 			static EventHandler						*mEventHandler;
+			static std::map<uint32_t, std::string>	*mActionNames;
 			
 			static void Init();
 			static void InitUI();

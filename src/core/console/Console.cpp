@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Saturday, 1st January 2022 9:31:59 am
+ * Last Modified: Sunday, 2nd January 2022 8:15:54 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -24,6 +24,8 @@ namespace Yuna
 		size_t											Console::mHistorySize = 20;
 		int												Console::mHistoryIndex = 0;
 		EventHandler									*Console::mEventHandler = NULL;
+		std::map<uint32_t, std::string>					*Console::mActionNames = NULL;
+
 
 		std::map<std::string, Console::sCommand>		Console::mCommands = std::map<std::string, Console::sCommand>();
 
@@ -116,14 +118,13 @@ namespace Yuna
 			{
 				while (std::getline(file, line))
 				{
-					if (line.find("/*"))
+					if (line.find("/*") != std::string::npos)
 						comment = true;
 					if (comment)
 					{
-						if (line.find("*/"))
+						if (line.find("*/") != std::string::npos)
 							comment = false;
-						else
-							continue;
+						continue;
 					}
 					ProcessCommand(line);
 				}
