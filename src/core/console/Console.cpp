@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Sunday, 2nd January 2022 8:15:54 pm
+ * Last Modified: Thursday, 6th January 2022 8:39:15 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -137,6 +137,29 @@ namespace Yuna
 				return (eCommandStatus::FAILURE);
 			}
 		}
+
+		void		Console::WriteBindingsToFile(const std::string &tFileName)
+		{
+			if (!mEventHandler || !mActionNames)
+				return ;
+			std::ofstream				file(tFileName);
+
+			if (file.is_open())
+			{
+				auto map = mEventHandler->GetBindingMap();
+				for (auto &binding : map)
+				{
+					if ((*mActionNames).find(binding.second) != mActionNames->end())
+						file << "bind " + mEventHandler->GetBindingNames()[binding.first] + " " + (*mActionNames)[binding.second] + '\n';
+				}
+				file.close();
+			}
+			else
+			{
+				std::cout << "failed to open file, does it exist?\n";
+			}
+		}
+
 
 
 		void		Console::Update()

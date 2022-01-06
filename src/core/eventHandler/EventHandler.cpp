@@ -4,7 +4,7 @@
  * File Created: Saturday, 9th October 2021 10:19:03 pm
  * Author: Marek Fischer
  * -----
- * Last Modified: Saturday, 1st January 2022 9:56:02 pm
+ * Last Modified: Thursday, 6th January 2022 8:29:42 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -52,11 +52,27 @@ namespace Yuna
 
 		void EventHandler::BindKey(sf::Keyboard::Key pKey, uint32_t pEvent)
 		{
+			for (auto &binding : mBindingMap)
+			{
+				if (binding.second == pEvent)
+				{
+					mBindingMap.erase(binding.first);
+					break;
+				}
+			}
 			mBindingMap[(u_int32_t)pKey] = pEvent;
 		}
 
 		void EventHandler::BindButton(sf::Mouse::Button pButton, uint32_t pEvent)
 		{
+			for (auto &binding : mBindingMap)
+			{
+				if (binding.second == pEvent)
+				{
+					mBindingMap.erase(binding.first);
+					break;
+				}
+			}
 			mBindingMap[((u_int32_t)pButton) + EVENTHANDLER_BUTTON_OFFSET] = pEvent;
 		}
 

@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:29:46 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Sunday, 2nd January 2022 7:38:54 pm
+ * Last Modified: Thursday, 6th January 2022 7:33:43 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -81,6 +81,7 @@ namespace Yuna
 
 			static eCommandStatus ProcessCommand(std::string tCommand);
 			static eCommandStatus ProcessFile(const std::string &tFileName);
+			static void WriteBindingsToFile(const std::string &tFileName);
 			static void	ProcessConsoleCommand();
 
 			static void Update();
