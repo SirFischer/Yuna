@@ -4,7 +4,7 @@
  * File Created: Saturday, 9th October 2021 9:57:02 pm
  * Author: Marek Fischer
  * -----
- * Last Modified: Sunday, 2nd January 2022 3:01:09 pm
+ * Last Modified: Thursday, 13th January 2022 7:06:22 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -31,7 +31,7 @@ namespace Yuna
 			sf::Clock	gameLoopClock;
 			//may need to make this a member in case someone want to switch it while running, although i don't know why that would be usefull...
 			float		mElapsedTime = 0.f;
-			float		mFrameTime = 0.f;
+			float		frameTime = 0.f;
 			while (mActive)
 			{
 				while (mElapsedTime >= mDeltaTime)
@@ -41,9 +41,11 @@ namespace Yuna
 					mElapsedTime -= mDeltaTime;
 				}
 				Render();
-				mFrameTime = gameLoopClock.restart().asSeconds();
-				mFPS = (mFPS * mFPSSmoothing) + (mFrameTime * (1.f - mFPSSmoothing));
-				mElapsedTime += mFrameTime;
+				frameTime = gameLoopClock.restart().asSeconds();
+				mSmoothFrameTime = (mSmoothFrameTime * mFPSSmoothing) + ((frameTime * (1.f - mFPSSmoothing)));
+				mFPS = 1.f / mSmoothFrameTime;
+				mFrameTime = frameTime;
+				mElapsedTime += frameTime;
 			}
 		}
 
@@ -51,6 +53,5 @@ namespace Yuna
 		{
 			mDeltaTime = tDeltaTime;
 		}
-
 	}
 }

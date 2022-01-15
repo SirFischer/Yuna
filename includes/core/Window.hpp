@@ -15,6 +15,7 @@ namespace Yuna
 
 			std::string			mTitle = "Window title";
 			sf::Vector2i		mSize = sf::Vector2i(1600, 900);
+			uint16_t			mFPS = 240;
 			bool				mFullscreen = false;
 
 		public:
@@ -47,6 +48,7 @@ namespace Yuna
 			void			SetSize(const sf::Vector2i &tSize);
 			void			SetTitle(const std::string &tTitle);
 			void			SetFullscreen(const bool &tFullscreen);
+			void			SetMaxFPS(uint16_t tFPS);
 
 			/**
 			 * Getters

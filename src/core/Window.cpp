@@ -22,6 +22,7 @@ namespace Yuna
 			auto isFullscreen = (mFullscreen) ? sf::Style::Fullscreen : sf::Style::Default;
 			sf::VideoMode	mode(mSize.x, mSize.y);
 			mWindow.create(mode, mTitle, isFullscreen);
+			mWindow.setFramerateLimit(mFPS);
 		}
 
 		void	Window::Destroy()
@@ -88,6 +89,12 @@ namespace Yuna
 		{
 			mFullscreen = tFullscreen;
 			Create();
+		}
+
+		void	Window::SetMaxFPS(uint16_t tFPS)
+		{
+			mFPS = tFPS;
+			mWindow.setFramerateLimit(mFPS);
 		}
 
 
