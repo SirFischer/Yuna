@@ -22,7 +22,9 @@ namespace Yuna
 			auto isFullscreen = (mFullscreen) ? sf::Style::Fullscreen : sf::Style::Default;
 			sf::VideoMode	mode(mSize.x, mSize.y);
 			mWindow.create(mode, mTitle, isFullscreen);
-			mWindow.setFramerateLimit(mFPS);
+			if (mFPS)
+				mWindow.setFramerateLimit(mFPS);
+			mWindow.setVerticalSyncEnabled(mVSync);
 		}
 
 		void	Window::Destroy()
@@ -95,6 +97,12 @@ namespace Yuna
 		{
 			mFPS = tFPS;
 			mWindow.setFramerateLimit(mFPS);
+		}
+
+		void	Window::SetVSync(const bool &tVSync)
+		{
+			mWindow.setVerticalSyncEnabled(tVSync);
+			mVSync = tVSync;
 		}
 
 
