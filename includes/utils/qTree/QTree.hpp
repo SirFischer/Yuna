@@ -4,7 +4,7 @@
  * File Created: Sunday, 31st October 2021 7:15:53 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Sunday, 31st October 2021 11:41:28 am
+ * Last Modified: Saturday, 26th February 2022 11:58:08 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -17,7 +17,7 @@
 
 //This can be overwritten by creating the constant before including this file.
 #ifndef MAX_QUADTREE_NODES
-	#define MAX_QUADTREE_NODES	4
+	#define MAX_QUADTREE_NODES 9
 #endif
 
 namespace Yuna
@@ -56,6 +56,8 @@ namespace Yuna
 			bool	Insert(T pData, sf::FloatRect pRect);
 			bool	Insert(NodeData<T> pNode);
 			void	Subdivide();
+			void	Render(sf::RenderWindow *pWindow, int pLevel);
+			void	PointRender(sf::RenderWindow *pWindow, const sf::Vector2f &pPoint);
 			std::list<std::list<NodeData<T>> *> RangeSearch(sf::FloatRect pRect);
 			std::list<NodeData<T>> *PointSearch(sf::Vector2f pPoint);
 		};
@@ -142,5 +144,66 @@ namespace Yuna
 			if ((res = mSouthEast->PointSearch(pPoint))) return (res);
 			return (NULL);
 		}
+
+		template <typename T>
+		void	QTree<T>::Render(sf::RenderWindow *pWindow, int pLevel)
+		{
+			if (!pLevel)
+				return ;
+			sf::VertexArray quad(sf::LineStrip, 4);
+			quad[0].position = sf::Vector2f(mRect.left, mRect.top);
+			quad[1].position = sf::Vector2f(mRect.left + mRect.width, mRect.top);
+			quad[2].position = sf::Vector2f(mRect.left + mRect.width, mRect.top + mRect.height);
+			quad[3].position = sf::Vector2f(mRect.left, mRect.top + mRect.height);
+
+			quad[0].color = sf::Color::Red;
+			quad[1].color = sf::Color::Red;
+			quad[2].color = sf::Color::Red;
+			quad[3].color = sf::Color::Red;
+			
+			pWindow->draw(quad);
+			if (mNorthWest)
+				mNorthWest->Render(pWindow, pLevel - 1);
+			if (mNorthEast)
+				mNorthEast->Render(pWindow, pLevel - 1);
+			if (mSouthEast)
+				mSouthEast->Render(pWindow, pLevel - 1);
+			if (mSouthWest)
+				mSouthWest->Render(pWindow, pLevel - 1);
+		}
+
+		template <typename T>
+		void	QTree<T>::PointRender(sf::RenderWindow *pWindow, const sf::Vector2f &pPoint)
+		{
+			if (!mRect.contains(pPoint))
+				return ;
+
+			if (!mNorthEast)
+			{
+				sf::VertexArray quad(sf::LineStrip, 4);
+				quad[0].position = sf::Vector2f(mRect.left, mRect.top);
+				quad[1].position = sf::Vector2f(mRect.left + mRect.width, mRect.top);
+				quad[2].position = sf::Vector2f(mRect.left + mRect.width, mRect.top + mRect.height);
+				quad[3].position = sf::Vector2f(mRect.left, mRect.top + mRect.height);
+
+				quad[0].color = sf::Color::Green;
+				quad[1].color = sf::Color::Green;
+				quad[2].color = sf::Color::Green;
+				quad[3].color = sf::Color::Green;
+
+				pWindow->draw(quad);
+			}
+
+			if (mNorthWest)
+				mNorthWest->PointRender(pWindow, pPoint);
+			if (mNorthEast)
+				mNorthEast->PointRender(pWindow, pPoint);
+			if (mSouthEast)
+				mSouthEast->PointRender(pWindow, pPoint);
+			if (mSouthWest)
+				mSouthWest->PointRender(pWindow, pPoint);
+		}
+
+
 	} // namespace Utils
 } // namespace Yuna
