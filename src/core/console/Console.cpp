@@ -4,12 +4,14 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Thursday, 6th January 2022 8:39:15 pm
+ * Last Modified: Friday, 25th March 2022 6:20:34 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
  */
 #include "Console.hpp"
+
+#include <iomanip>
 
 namespace Yuna
 {
@@ -94,7 +96,7 @@ namespace Yuna
 			if (mHistory.size() > mHistorySize)
 				mHistory.pop_back();
 			ss >> command;
-			while (ss >> tmp)
+			while (ss >> std::quoted(tmp))
 			{
 				parameters.push_back(tmp);
 			}
