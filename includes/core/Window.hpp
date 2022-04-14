@@ -57,6 +57,7 @@ namespace Yuna
 			 **/
 			sf::Vector2u		GetSize(){return (mWindow.getSize());}
 			sf::Vector2i		GetRelativeMousePos(){return (sf::Mouse::getPosition(mWindow));}
+			sf::Vector2f		GetViewMousePos(){return (mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow)));}
 			sf::RenderWindow*	GetRenderWindow(){return (&mWindow);}
 			bool				IsFullscreen(){return (mFullscreen);}
 
