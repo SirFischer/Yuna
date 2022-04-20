@@ -4,16 +4,18 @@
  * File Created: Sunday, 31st October 2021 7:15:53 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Saturday, 26th February 2022 11:58:08 am
+ * Last Modified: Monday, 18th April 2022 7:10:43 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
  */
 
 #pragma once
+#include <vector>
 #include <list>
 #include <memory>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 //This can be overwritten by creating the constant before including this file.
 #ifndef MAX_QUADTREE_NODES
@@ -41,25 +43,26 @@ namespace Yuna
 		class QTree
 		{
 		private:
-			std::list<NodeData<T>>		mData;
+			std::vector<NodeData<T>>	mData;
 			sf::FloatRect				mRect;
 
 			std::unique_ptr<QTree<T>>	mNorthWest;
 			std::unique_ptr<QTree<T>>	mSouthWest;
 			std::unique_ptr<QTree<T>>	mSouthEast;
 			std::unique_ptr<QTree<T>>	mNorthEast;
-			
+
 		public:
 			QTree(sf::FloatRect	pRect);
 			~QTree();
 
-			bool	Insert(T pData, sf::FloatRect pRect);
-			bool	Insert(NodeData<T> pNode);
-			void	Subdivide();
-			void	Render(sf::RenderWindow *pWindow, int pLevel);
-			void	PointRender(sf::RenderWindow *pWindow, const sf::Vector2f &pPoint);
-			std::list<std::list<NodeData<T>> *> RangeSearch(sf::FloatRect pRect);
-			std::list<NodeData<T>> *PointSearch(sf::Vector2f pPoint);
+			sf::FloatRect							GetGlobalBounds(){return (mRect);}
+			bool									Insert(T pData, sf::FloatRect pRect);
+			bool									Insert(NodeData<T> pNode);
+			void									DeleteAt(const sf::FloatRect &pWithin, const sf::Vector2f &pPos);
+			void									Subdivide();
+			void									Render(sf::RenderWindow *pWindow, int pLevel);
+			std::list<std::vector<NodeData<T>> *>	Query(sf::FloatRect pRect);
+			void									ForEach(sf::FloatRect mWithin, std::function<void(const T &pData)> pFunction);
 		};
 
 		template <typename T>
@@ -102,6 +105,27 @@ namespace Yuna
 		}
 
 		template <typename T>
+		void		QTree<T>::DeleteAt(const sf::FloatRect &pWithin, const sf::Vector2f &pPos)
+		{
+			if (!mRect.intersects(pWithin))
+				return ;
+
+			if (mNorthWest)
+			{
+				mNorthWest->DeleteAt(pWithin, pPos);
+				mNorthEast->DeleteAt(pWithin, pPos);
+				mSouthWest->DeleteAt(pWithin, pPos);
+				mSouthEast->DeleteAt(pWithin, pPos);
+				return ;
+			}
+
+			std::remove_if(mData.begin(), mData.end(), [pPos](const NodeData<T> &data){
+				return (data.mRect.contains(pPos));
+			});
+		}
+
+
+		template <typename T>
 		void		QTree<T>::Subdivide()
 		{
 			mNorthEast = std::make_unique<QTree<T>>(sf::FloatRect(mRect.left + (mRect.width / 2.f), mRect.top, mRect.width / 2.f, mRect.height / 2.f));
@@ -114,35 +138,20 @@ namespace Yuna
 		}
 		
 		template <typename T>
-		std::list<std::list<NodeData<T>>*> QTree<T>::RangeSearch(sf::FloatRect pRect)
+		std::list<std::vector<NodeData<T>>*> QTree<T>::Query(sf::FloatRect pRect)
 		{
-			std::list<std::list<NodeData<T>>*>	list;
+			std::list<std::vector<NodeData<T>>*>	list;
 			if (!mRect.intersects(pRect))
 				return (list);
 			list.push_front(&mData);
 			if (mNorthWest)
 			{
-				list.merge(mNorthWest->RangeSearch(pRect));
-				list.merge(mNorthEast->RangeSearch(pRect));
-				list.merge(mSouthWest->RangeSearch(pRect));
-				list.merge(mSouthEast->RangeSearch(pRect));
+				list.merge(mNorthWest->Query(pRect));
+				list.merge(mNorthEast->Query(pRect));
+				list.merge(mSouthWest->Query(pRect));
+				list.merge(mSouthEast->Query(pRect));
 			}
 			return (list);
-		}
-
-		template <typename T>
-		std::list<NodeData<T>> *QTree<T>::PointSearch(sf::Vector2f pPoint)
-		{
-			std::list<NodeData<T>>	*res = NULL;
-			if (!mRect.contains(pPoint))
-				return (NULL);
-			if (!mNorthWest)
-				return (&mData);
-			if ((res = mNorthWest->PointSearch(pPoint))) return (res);
-			if ((res = mNorthEast->PointSearch(pPoint))) return (res);
-			if ((res = mSouthWest->PointSearch(pPoint))) return (res);
-			if ((res = mSouthEast->PointSearch(pPoint))) return (res);
-			return (NULL);
 		}
 
 		template <typename T>
@@ -160,49 +169,36 @@ namespace Yuna
 			quad[1].color = sf::Color::Red;
 			quad[2].color = sf::Color::Red;
 			quad[3].color = sf::Color::Red;
-			
+
 			pWindow->draw(quad);
 			if (mNorthWest)
+			{
 				mNorthWest->Render(pWindow, pLevel - 1);
-			if (mNorthEast)
 				mNorthEast->Render(pWindow, pLevel - 1);
-			if (mSouthEast)
 				mSouthEast->Render(pWindow, pLevel - 1);
-			if (mSouthWest)
 				mSouthWest->Render(pWindow, pLevel - 1);
+			}
 		}
 
 		template <typename T>
-		void	QTree<T>::PointRender(sf::RenderWindow *pWindow, const sf::Vector2f &pPoint)
+		void	QTree<T>::ForEach(sf::FloatRect mWithin, std::function<void(const T &pData)> pFunction)
 		{
-			if (!mRect.contains(pPoint))
+			if (!mRect.intersects(mWithin))
 				return ;
-
-			if (!mNorthEast)
+			if (!mNorthWest)
 			{
-				sf::VertexArray quad(sf::LineStrip, 4);
-				quad[0].position = sf::Vector2f(mRect.left, mRect.top);
-				quad[1].position = sf::Vector2f(mRect.left + mRect.width, mRect.top);
-				quad[2].position = sf::Vector2f(mRect.left + mRect.width, mRect.top + mRect.height);
-				quad[3].position = sf::Vector2f(mRect.left, mRect.top + mRect.height);
-
-				quad[0].color = sf::Color::Green;
-				quad[1].color = sf::Color::Green;
-				quad[2].color = sf::Color::Green;
-				quad[3].color = sf::Color::Green;
-
-				pWindow->draw(quad);
+				for (auto &data : mData)
+					pFunction(data.mData);
 			}
-
-			if (mNorthWest)
-				mNorthWest->PointRender(pWindow, pPoint);
-			if (mNorthEast)
-				mNorthEast->PointRender(pWindow, pPoint);
-			if (mSouthEast)
-				mSouthEast->PointRender(pWindow, pPoint);
-			if (mSouthWest)
-				mSouthWest->PointRender(pWindow, pPoint);
+			else
+			{
+				mNorthWest->ForEach(mWithin, pFunction);
+				mNorthEast->ForEach(mWithin, pFunction);
+				mSouthWest->ForEach(mWithin, pFunction);
+				mSouthEast->ForEach(mWithin, pFunction);
+			}
 		}
+
 
 
 	} // namespace Utils
