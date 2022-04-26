@@ -58,7 +58,7 @@ namespace Yuna
 			sf::FloatRect							GetGlobalBounds(){return (mRect);}
 			bool									Insert(T pData, sf::FloatRect pRect);
 			bool									Insert(NodeData<T> pNode);
-			void									DeleteAt(const sf::FloatRect &pWithin, const sf::Vector2f &pPos);
+			bool									DeleteAt(const sf::FloatRect &pWithin, const sf::Vector2f &pPos);
 			void									Subdivide();
 			void									Render(sf::RenderWindow *pWindow, int pLevel);
 			std::list<std::vector<NodeData<T>> *>	Query(sf::FloatRect pRect);
@@ -105,23 +105,25 @@ namespace Yuna
 		}
 
 		template <typename T>
-		void		QTree<T>::DeleteAt(const sf::FloatRect &pWithin, const sf::Vector2f &pPos)
+		bool		QTree<T>::DeleteAt(const sf::FloatRect &pWithin, const sf::Vector2f &pPos)
 		{
 			if (!mRect.intersects(pWithin))
-				return ;
+				return (false);
 
 			if (mNorthWest)
 			{
-				mNorthWest->DeleteAt(pWithin, pPos);
-				mNorthEast->DeleteAt(pWithin, pPos);
-				mSouthWest->DeleteAt(pWithin, pPos);
-				mSouthEast->DeleteAt(pWithin, pPos);
-				return ;
+				if (mNorthWest->DeleteAt(pWithin, pPos)) return (true);
+				if (mNorthEast->DeleteAt(pWithin, pPos)) return (true);
+				if (mSouthWest->DeleteAt(pWithin, pPos)) return (true);
+				if (mSouthEast->DeleteAt(pWithin, pPos)) return (true);
+				return (false);
 			}
-
-			std::remove_if(mData.begin(), mData.end(), [pPos](const NodeData<T> &data){
+			const auto size = mData.size();
+			auto it = std::remove_if(mData.begin(), mData.end(), [pPos](const NodeData<T> &data){
 				return (data.mRect.contains(pPos));
 			});
+			mData.erase(it, mData.end());
+			return (size != mData.size());
 		}
 
 
@@ -136,7 +138,8 @@ namespace Yuna
 				Insert(i);
 			mData.clear();
 		}
-		
+
+
 		template <typename T>
 		std::list<std::vector<NodeData<T>>*> QTree<T>::Query(sf::FloatRect pRect)
 		{
