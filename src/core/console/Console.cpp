@@ -4,7 +4,7 @@
  * File Created: Wednesday, 20th October 2021 7:28:28 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Friday, 25th March 2022 6:20:34 am
+ * Last Modified: Monday, 23rd May 2022 10:25:42 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -152,7 +152,7 @@ namespace Yuna
 				for (auto &binding : map)
 				{
 					if ((*mActionNames).find(binding.second) != mActionNames->end())
-						file << "bind " + mEventHandler->GetBindingNames()[binding.first] + " " + (*mActionNames)[binding.second] + '\n';
+						file << "bind \"" + mEventHandler->GetBindingNames()[binding.first] + "\" " + (*mActionNames)[binding.second] + '\n';
 				}
 				file.close();
 			}

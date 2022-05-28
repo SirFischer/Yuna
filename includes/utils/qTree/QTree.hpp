@@ -4,7 +4,7 @@
  * File Created: Sunday, 31st October 2021 7:15:53 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Saturday, 7th May 2022 7:42:52 am
+ * Last Modified: Saturday, 14th May 2022 7:36:37 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -56,13 +56,13 @@ namespace Yuna
 			~QTree();
 
 			sf::FloatRect							GetGlobalBounds(){return (mRect);}
-			bool									Insert(T pData, sf::FloatRect pRect);
-			bool									Insert(NodeData<T> pNode);
+			T										*Insert(T pData, sf::FloatRect pRect);
+			T										*Insert(NodeData<T> pNode);
 			bool									DeleteAt(const sf::FloatRect &pWithin, const sf::Vector2f &pPos);
 			void									Subdivide();
 			void									Render(sf::RenderWindow *pWindow, int pLevel);
 			std::list<std::vector<NodeData<T>> *>	Query(sf::FloatRect pRect);
-			void									ForEach(sf::FloatRect mWithin, std::function<void(const T &pData)> pFunction);
+			void									ForEach(sf::FloatRect mWithin, std::function<void(T &pData)> pFunction);
 		};
 
 		template <typename T>
@@ -77,31 +77,32 @@ namespace Yuna
 		}
 
 		template <typename T>
-		bool		QTree<T>::Insert(T pData, sf::FloatRect pRect)
+		T		*QTree<T>::Insert(T pData, sf::FloatRect pRect)
 		{
 			NodeData<T> node(pData, pRect);
 			return (Insert(node));
 		}
 
 		template <typename T>
-		bool		QTree<T>::Insert(NodeData<T> pNode)
+		T		*QTree<T>::Insert(NodeData<T> pNode)
 		{
 			if (!pNode.mRect.intersects(mRect))
-				return (false);
+				return (NULL);
 			if (mData.size() < MAX_QUADTREE_NODES && !mNorthWest)
 			{
 				mData.push_back(pNode);
-				return (true);
+				return (&mData.back().mData);
 			}
 			if (!mNorthWest)
 				Subdivide();
 
-			if (mNorthWest->Insert(pNode)) return (true);
-			if (mNorthEast->Insert(pNode)) return (true);
-			if (mSouthEast->Insert(pNode)) return (true);
-			if (mSouthWest->Insert(pNode)) return (true);
+			T *res = NULL;
+			if ((res = mNorthWest->Insert(pNode))) return (res);
+			if ((res = mNorthEast->Insert(pNode))) return (res);
+			if ((res = mSouthEast->Insert(pNode))) return (res);
+			if ((res = mSouthWest->Insert(pNode))) return (res);
 
-			return (false);
+			return (NULL);
 		}
 
 		template <typename T>
@@ -184,7 +185,7 @@ namespace Yuna
 		}
 
 		template <typename T>
-		void	QTree<T>::ForEach(sf::FloatRect mWithin, std::function<void(const T &pData)> pFunction)
+		void	QTree<T>::ForEach(sf::FloatRect mWithin, std::function<void(T &pData)> pFunction)
 		{
 			if (!mRect.intersects(mWithin))
 				return ;
