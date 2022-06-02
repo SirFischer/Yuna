@@ -4,7 +4,7 @@
  * File Created: Sunday, 29th May 2022 12:16:47 pm
  * Author: Marek Fischer
  * -----
- * Last Modified: Wednesday, 1st June 2022 4:01:20 pm
+ * Last Modified: Thursday, 2nd June 2022 6:42:37 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2022 Deep Vertic
@@ -40,7 +40,7 @@ namespace Yuna
 			//sum of mG and mH
 			float				mF = 0.f;
 			sf::Vector2f		mPosition;
-			std::list<Path>		mConnectedPaths;
+			std::list<Path>		mConnectedPaths = std::list<Path>();
 			PathNode			*mParent = nullptr;
 		};
 
