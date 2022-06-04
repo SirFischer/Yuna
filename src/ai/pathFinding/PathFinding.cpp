@@ -4,7 +4,7 @@
  * File Created: Sunday, 29th May 2022 9:13:22 pm
  * Author: Marek Fischer
  * -----
- * Last Modified: Friday, 3rd June 2022 9:53:49 pm
+ * Last Modified: Saturday, 4th June 2022 8:00:15 am
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2022 Deep Vertic
@@ -32,6 +32,7 @@ namespace Yuna
 				PathNode newPath = PathNode();
 				newPath.mPosition = current->mPosition;
 				newPath.mIsBreakable = current->mIsBreakable;
+				newPath.mParentObject = current->mParentObject;
 				
 				targets.push_back(newPath);
 				PathNode *next = current->mParent;

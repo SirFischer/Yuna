@@ -4,13 +4,15 @@
  * File Created: Sunday, 29th May 2022 12:16:47 pm
  * Author: Marek Fischer
  * -----
- * Last Modified: Friday, 3rd June 2022 9:44:14 pm
+ * Last Modified: Saturday, 4th June 2022 12:33:11 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2022 Deep Vertic
  */
 
 #pragma once
+
+#include "world/World.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -42,6 +44,7 @@ namespace Yuna
 			sf::Vector2f		mPosition = sf::Vector2f(0, 0);
 			std::list<Path>		mConnectedPaths = std::list<Path>();
 			PathNode			*mParent = nullptr;
+			std::shared_ptr<World::Object>	mParentObject = nullptr;
 		};
 
 		std::vector<PathNode>	createPath(PathNode *pStart, PathNode *pEnd);
