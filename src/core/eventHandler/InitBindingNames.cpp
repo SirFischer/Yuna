@@ -4,7 +4,7 @@
  * File Created: Saturday, 1st January 2022 9:14:27 pm
  * Author: Marek Fischer
  * -----
- * Last Modified: Saturday, 1st January 2022 10:51:49 pm
+ * Last Modified: Wednesday, 22nd June 2022 8:41:18 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2022 Deep Vertic
@@ -56,6 +56,9 @@ namespace Yuna
 			mBindingNames[sf::Mouse::Left + EVENTHANDLER_BUTTON_OFFSET]  = "Left Mouse Button";
 			mBindingNames[sf::Mouse::Right + EVENTHANDLER_BUTTON_OFFSET]  = "Right Mouse Button";
 			mBindingNames[sf::Mouse::Middle + EVENTHANDLER_BUTTON_OFFSET]  = "Middle Mouse Button";
+
+			mBindingNames[EVENTHANDLER_WHEEL_OFFSET + 1] = "Mouse Wheel Up";
+			mBindingNames[EVENTHANDLER_WHEEL_OFFSET - 1] = "Mouse Wheel Down";
 
 
 		}

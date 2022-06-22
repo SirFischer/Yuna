@@ -4,7 +4,7 @@
  * File Created: Saturday, 9th October 2021 10:19:03 pm
  * Author: Marek Fischer
  * -----
- * Last Modified: Thursday, 6th January 2022 8:29:42 pm
+ * Last Modified: Wednesday, 22nd June 2022 9:04:36 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic
@@ -45,6 +45,10 @@ namespace Yuna
 				if (mBindingMap.count(pEvent.key.code + EVENTHANDLER_BUTTON_OFFSET))
 					mEventStates[mBindingMap[pEvent.key.code + EVENTHANDLER_BUTTON_OFFSET]] = false;
 				break;
+			 case sf::Event::MouseWheelScrolled:
+			 	if (mBindingMap.count(EVENTHANDLER_WHEEL_OFFSET + pEvent.mouseWheelScroll.delta))
+			 		mEventStates[mBindingMap[EVENTHANDLER_WHEEL_OFFSET + pEvent.mouseWheelScroll.delta]] = true;
+			 	break;
 			default:
 				break;
 			}
@@ -52,29 +56,28 @@ namespace Yuna
 
 		void EventHandler::BindKey(sf::Keyboard::Key pKey, uint32_t pEvent)
 		{
-			for (auto &binding : mBindingMap)
-			{
-				if (binding.second == pEvent)
-				{
-					mBindingMap.erase(binding.first);
-					break;
-				}
-			}
+			ClearEventBinding(pEvent);
 			mBindingMap[(u_int32_t)pKey] = pEvent;
 		}
 
 		void EventHandler::BindButton(sf::Mouse::Button pButton, uint32_t pEvent)
 		{
-			for (auto &binding : mBindingMap)
-			{
-				if (binding.second == pEvent)
-				{
-					mBindingMap.erase(binding.first);
-					break;
-				}
-			}
+			ClearEventBinding(pEvent);
 			mBindingMap[((u_int32_t)pButton) + EVENTHANDLER_BUTTON_OFFSET] = pEvent;
 		}
+
+		void			EventHandler::BindWheelDown(uint32_t pEvent)
+		{
+			ClearEventBinding(pEvent);
+			mBindingMap[EVENTHANDLER_WHEEL_OFFSET - 1] = pEvent;
+		}
+
+		void			EventHandler::BindWheelUp(uint32_t pEvent)
+		{
+			ClearEventBinding(pEvent);
+			mBindingMap[EVENTHANDLER_WHEEL_OFFSET + 1] = pEvent;
+		}
+
 
 		void EventHandler::SetEventState(uint32_t pEvent, bool pState)
 		{
@@ -85,5 +88,18 @@ namespace Yuna
 		{
 			return (mEventStates[pEvent]);
 		}
+
+		void EventHandler::ClearEventBinding(uint32_t pEvent)
+		{
+			for (auto &binding : mBindingMap)
+			{
+				if (binding.second == pEvent)
+				{
+					mBindingMap.erase(binding.first);
+					break;
+				}
+			}
+		}
+
 	} // namespace Core
 } // namespace Yuna

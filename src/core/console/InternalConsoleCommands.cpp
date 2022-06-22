@@ -4,7 +4,7 @@
  * File Created: Thursday, 4th March 2021 6:11:44 pm
  * Author: Marek Fischer
  * -----
- * Last Modified: Sunday, 2nd January 2022 7:55:00 pm
+ * Last Modified: Wednesday, 22nd June 2022 8:58:06 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2021 Deep Vertic, Deep Vertic
@@ -83,10 +83,14 @@ namespace Yuna
 			}
 			if (key != -1 && action != -1)
 			{
-				if (key < 1000)
+				if (key < EVENTHANDLER_BUTTON_OFFSET)
 					Console::mEventHandler->BindKey((sf::Keyboard::Key)key, action);
-				else
+				else if (key < EVENTHANDLER_WHEEL_OFFSET - 10)
 					Console::mEventHandler->BindButton((sf::Mouse::Button)(key - 1000), action);
+				else if (key == EVENTHANDLER_WHEEL_OFFSET + 1)
+					Console::mEventHandler->BindWheelUp(action);
+				else if (key == EVENTHANDLER_WHEEL_OFFSET - 1)
+					Console::mEventHandler->BindWheelDown(action);
 			}
 			else
 			{
