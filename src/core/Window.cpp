@@ -123,6 +123,12 @@ namespace Yuna
 			mWindow.setView(defaultView);	
 		}
 
+		void	Window::SetCursorVisibility(const bool &tVisibility)
+		{
+			mWindow.setMouseCursorVisible(tVisibility);
+		}
+
+
 		void	Window::ResetView(bool tResize)
 		{
 			if (tResize)

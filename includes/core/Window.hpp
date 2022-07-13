@@ -51,6 +51,7 @@ namespace Yuna
 			void			SetFullscreen(const bool &tFullscreen);
 			void			SetMaxFPS(uint16_t tFPS);
 			void			SetVSync(const bool &tVSync);
+			void			SetCursorVisibility(const bool &tVisibility);
 
 			/**
 			 * Getters
