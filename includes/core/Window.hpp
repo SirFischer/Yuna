@@ -33,6 +33,7 @@ namespace Yuna
 			 * Drawing Utilities
 			 **/
 			void			Draw(sf::Drawable &tDrawable);
+			void			Draw(sf::Drawable &tDrawable, const sf::RenderStates &tStates);
 			void			Draw(sf::Vertex *tVertex, size_t tSize, sf::PrimitiveType tType);
 			void			Clear();
 			void			Clear(const sf::Color &tColor);

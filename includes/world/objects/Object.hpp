@@ -4,7 +4,7 @@
  * File Created: Saturday, 4th June 2022 7:31:03 am
  * Author: Marek Fischer
  * -----
- * Last Modified: Saturday, 4th June 2022 7:35:19 am
+ * Last Modified: Saturday, 18th February 2023 2:53:25 pm
  * Modified By: Marek Fischer 
  * -----
  * Copyright - 2022 Deep Vertic
@@ -19,6 +19,7 @@ namespace Yuna
 		class Object
 		{
 		protected:
+			float	mMaxHealth = 100.f;
 			float	mHealth = 100.f;
 
 		public:

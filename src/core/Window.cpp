@@ -41,6 +41,11 @@ namespace Yuna
 			mWindow.draw(tDrawable);
 		}
 
+		void	Window::Draw(sf::Drawable &tDrawable, const sf::RenderStates &tStates)
+		{
+			mWindow.draw(tDrawable, tStates);
+		}
+
 		void	Window::Draw(sf::Vertex *tVertex, size_t tSize, sf::PrimitiveType tType)
 		{
 			mWindow.draw(tVertex, tSize, tType);
