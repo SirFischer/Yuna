@@ -25,7 +25,8 @@ all: install_dep mfGUI.a $(OBJS) $(NAME)
 $(OBJS):	| obj
 
 mfGUI.a:
-	make -C mfGUI/.
+	#$(MAKE) -C mfGUI/.
+	ninja -C mfGUI/.
 
 obj:
 	@echo "$(_BLUE)Creating object directories...$(_END)"
