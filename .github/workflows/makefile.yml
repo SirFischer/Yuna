@@ -23,6 +23,10 @@ jobs:
     - name: Install dependencies
       run: sudo apt install -y build-essential cmake ninja-build
 
+    - name: Set SFML_DIR
+      run: echo "export SFML_DIR=/usr/lib/cmake/SFML" >> ~/.bashrc
+      run: source ~/.bashrc
+
     - name: Generate Ninja for mfGUI
       run: cd mfGUI && cmake -G Ninja && cd ..
 
