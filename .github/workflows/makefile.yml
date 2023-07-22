@@ -24,7 +24,7 @@ jobs:
       run: sudo apt install -y build-essential cmake ninja-build
 
     - name: Generate Ninja for mfGUI
-      run: cd mfGUI && cmake -S . -B build -G Ninja && cd ..
+      run: cd mfGUI && cmake -B . -H . -G Ninja && cd ..
 
     - name: compilation
       run: make
