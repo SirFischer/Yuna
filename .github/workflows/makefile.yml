@@ -21,7 +21,7 @@ jobs:
       run: git submodule update --init --recursive
 
     - name: Install dependencies
-      run: sudo apt install -y build-essential cmake ninja-build
+      run: sudo apt install -y build-essential cmake ninja-build libsfml-dev
 
     - name: Set SFML_DIR
       run: echo "export SFML_DIR=/usr/lib/cmake/SFML" >> ~/.bashrc
