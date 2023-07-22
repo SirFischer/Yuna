@@ -24,8 +24,7 @@ jobs:
       run: sudo apt install -y build-essential cmake ninja-build libsfml-dev
 
     - name: Set SFML_DIR
-      run: echo "export SFML_DIR=/usr/lib/cmake/SFML" >> ~/.bashrc
-      run: source ~/.bashrc
+      run: echo "export SFML_DIR=/usr/lib/cmake/SFML" >> ~/.bashrc && source ~/.bashrc
 
     - name: Generate Ninja for mfGUI
       run: cd mfGUI && cmake -G Ninja && cd ..
