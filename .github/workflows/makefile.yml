@@ -20,6 +20,9 @@ jobs:
     - name: Checkout submodules
       run: git submodule update --init --recursive
 
+    - name: Install dependencies
+      run: sudo apt install -y build-essential cmake ninja-build libsfml-dev libboost-all-dev libspdlog-dev libfmt-dev libimgui-dev libimgui-sfml-dev
+
     - name: Generate Ninja for mfGUI
       run: cd mfGUI && cmake -S . -B build -G Ninja && cd ..
 
