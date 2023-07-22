@@ -20,6 +20,9 @@ jobs:
     - name: Checkout submodules
       run: git submodule update --init --recursive
 
+    - name: Generate Ninja for mfGUI
+      run: cd mfGUI && cmake -S . -B build -G Ninja && cd ..
+
     - name: compilation
       run: make
       
