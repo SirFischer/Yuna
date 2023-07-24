@@ -21,5 +21,6 @@ namespace Yuna
 	namespace Math
 	{
 		float	Distance(const sf::Vector2f &pPoint_1, const sf::Vector2f &pPoint_2);
+		float	Angle(const sf::Vector2f &pPoint_1, const sf::Vector2f &pPoint_2);
 	}
 }
