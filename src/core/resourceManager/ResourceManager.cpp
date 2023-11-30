@@ -46,6 +46,19 @@ namespace Yuna
 			return ((mFonts[tPath] = ptr));
 		}
 
+		sf::Sound							ResourceManager::LoadSound(std::string tPath)
+		{
+			sf::SoundBuffer	buffer;
+			if (mSounds.count(tPath))
+			{
+				return (sf::Sound(mSounds[tPath]));
+			}
+			if (!buffer.loadFromFile(tPath))
+				throw std::runtime_error("Failed to load " + tPath);
+			mSounds[tPath] = buffer;
+			return (sf::Sound(mSounds[tPath]));
+		}
+
 
 	} // namespace Core
 	

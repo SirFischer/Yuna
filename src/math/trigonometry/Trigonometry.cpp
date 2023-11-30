@@ -20,6 +20,11 @@ namespace Yuna
 		{
 			return (sqrt((pow(pPoint_1.x - pPoint_2.x, 2.f) + pow(pPoint_1.y - pPoint_2.y, 2.f))));
 		}
+
+		float	Angle(const sf::Vector2f &pPoint_1, const sf::Vector2f &pPoint_2)
+		{
+			return (atan2(pPoint_2.y - pPoint_1.y, pPoint_2.x - pPoint_1.x));
+		}
 	}
 
 }

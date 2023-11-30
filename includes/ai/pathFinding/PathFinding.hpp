@@ -35,6 +35,7 @@ namespace Yuna
 		struct PathNode
 		{
 			bool				mIsBreakable = false;
+			float				mCostToBreak = 0.f;
 			//distance from start node
 			float				mG = 0.f;
 			//distance from end node
