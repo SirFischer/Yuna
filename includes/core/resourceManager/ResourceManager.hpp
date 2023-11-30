@@ -2,6 +2,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <unordered_map>
 
 namespace Yuna
 {
