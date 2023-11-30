@@ -74,6 +74,7 @@ namespace Yuna
 					return (getPath(pStart, pEnd));
 				}
 
+
 				for (auto &subsequent : current->mConnectedPaths)
 				{
 					float g = current->mG + subsequent.cost;

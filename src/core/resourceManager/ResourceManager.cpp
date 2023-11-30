@@ -46,6 +46,18 @@ namespace Yuna
 			return ((mFonts[tPath] = ptr));
 		}
 
+		std::shared_ptr<sf::Shader>			ResourceManager::LoadShader(std::string tPath)
+		{
+			std::shared_ptr<sf::Shader>	ptr;
+			if (mShaders.count(tPath))
+				return (mShaders[tPath]);
+			ptr = std::make_shared<sf::Shader>();
+			if (!ptr->loadFromFile(tPath, sf::Shader::Fragment))
+				throw std::runtime_error("Failed to load " + tPath);
+			return ((mShaders[tPath] = ptr));
+		}
+
+
 		sf::Sound							ResourceManager::LoadSound(std::string tPath)
 		{
 			sf::SoundBuffer	buffer;
