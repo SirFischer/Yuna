@@ -18,9 +18,9 @@ else
 CFLAGS += -g
 endif
 
-.PHONY:		install_dep obj clean fclean all GEN_SOURCES test check
+.PHONY: obj clean fclean all GEN_SOURCES test check
 
-all: install_dep mfGUI.a $(OBJS) $(NAME)
+all: mfGUI.a $(OBJS) $(NAME)
 
 $(OBJS):	| obj
 
@@ -43,12 +43,6 @@ $(NAME): $(OBJS)
 	$(AR) $@ $^ $(LIBDEP) 
 	$(RAN) $(NAME)
 	@echo "$(_GREEN)Done!$(_END)"
-
-ifeq ($(UNAME), Linux)
-install_dep:
-	@echo "$(_BLUE)Fetching dependencies...$(_END)"
-	@sudo apt-get install libsfml-dev
-endif
 
 test:	all
 	./$(NAME)
