@@ -22,6 +22,7 @@ namespace Yuna
 			auto isFullscreen = (mFullscreen) ? sf::Style::Fullscreen : sf::Style::Default;
 			sf::VideoMode	mode(mSize.x, mSize.y);
 			mWindow.create(mode, mTitle, isFullscreen);
+			mTexture.create(mSize.x, mSize.y);
 			if (mFPS)
 				mWindow.setFramerateLimit(mFPS);
 			mWindow.setVerticalSyncEnabled(mVSync);
@@ -38,17 +39,17 @@ namespace Yuna
 		 **/
 		void	Window::Draw(sf::Drawable &tDrawable)
 		{
-			mRenderTexture.draw(tDrawable);
+			mWindow.draw(tDrawable);
 		}
 
 		void	Window::Draw(sf::Drawable &tDrawable, const sf::RenderStates &tStates)
 		{
-			mRenderTexture.draw(tDrawable, tStates);
+			mWindow.draw(tDrawable, tStates);
 		}
 
 		void	Window::Draw(sf::Vertex *tVertex, size_t tSize, sf::PrimitiveType tType)
 		{
-			mRenderTexture.draw(tVertex, tSize, tType);
+			mWindow.draw(tVertex, tSize, tType);
 		}
 
 
@@ -59,13 +60,22 @@ namespace Yuna
 
 		void	Window::Clear(const sf::Color &tColor)
 		{
-			mRenderTexture.clear(tColor);
+			mWindow.clear(tColor);
 		}
 
 		void	Window::Render()
 		{
-			mRenderTexture.display();
-			mWindow.draw(sf::Sprite(mRenderTexture.getTexture()));
+			mWindow.display();
+		}
+
+		void	Window::Render(sf::Shader *tShader)
+		{
+			mTexture.update(mWindow);
+			mSprite.setTexture(mTexture);
+			mSprite.setPosition(0, 0);
+			mWindow.clear();
+			tShader->setUniform("texture", sf::Shader::CurrentTexture);
+			mWindow.draw(mSprite, tShader);
 			mWindow.display();
 		}
 
@@ -115,19 +125,19 @@ namespace Yuna
 
 		void	Window::SetView(sf::View tView)
 		{
-			mRenderTexture.setView(tView);	
+			mWindow.setView(tView);	
 		}
 
 		sf::View	Window::GetView()
 		{
-			return(mRenderTexture.getView());
+			return(mWindow.getView());
 		}
 
 		void	Window::SetDefaultView()
 		{
 			sf::View	defaultView;
-			defaultView = mRenderTexture.getDefaultView();
-			mRenderTexture.setView(defaultView);	
+			defaultView = mWindow.getDefaultView();
+			mWindow.setView(defaultView);	
 		}
 
 		void	Window::SetCursorVisibility(const bool &tVisibility)
@@ -139,9 +149,9 @@ namespace Yuna
 		void	Window::ResetView(bool tResize)
 		{
 			if (tResize)
-				mRenderTexture.setView(sf::View(sf::Vector2f(mWindow.getSize().x / 2, mWindow.getSize().y / 2), sf::Vector2f(mWindow.getSize())));
+				mWindow.setView(sf::View(sf::Vector2f(mWindow.getSize().x / 2, mWindow.getSize().y / 2), sf::Vector2f(mWindow.getSize())));
 			else
-				mRenderTexture.setView(mRenderTexture.getDefaultView());
+				mWindow.setView(mWindow.getDefaultView());
 		}
 	} // namespace core
 	

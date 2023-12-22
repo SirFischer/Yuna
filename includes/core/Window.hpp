@@ -12,7 +12,8 @@ namespace Yuna
 		{
 		private:
 			sf::RenderWindow	mWindow;
-			sf::RenderTexture	mRenderTexture;
+			sf::Texture			mTexture;
+			sf::Sprite			mSprite;
 
 			std::string			mTitle = "Window title";
 			sf::Vector2i		mSize = sf::Vector2i(1600, 900);
@@ -39,6 +40,7 @@ namespace Yuna
 			void			Clear();
 			void			Clear(const sf::Color &tColor);
 			void			Render();
+			void			Render(sf::Shader *tShader);
 
 			/**
 			 * Events
