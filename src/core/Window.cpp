@@ -38,17 +38,17 @@ namespace Yuna
 		 **/
 		void	Window::Draw(sf::Drawable &tDrawable)
 		{
-			mWindow.draw(tDrawable);
+			mRenderTexture.draw(tDrawable);
 		}
 
 		void	Window::Draw(sf::Drawable &tDrawable, const sf::RenderStates &tStates)
 		{
-			mWindow.draw(tDrawable, tStates);
+			mRenderTexture.draw(tDrawable, tStates);
 		}
 
 		void	Window::Draw(sf::Vertex *tVertex, size_t tSize, sf::PrimitiveType tType)
 		{
-			mWindow.draw(tVertex, tSize, tType);
+			mRenderTexture.draw(tVertex, tSize, tType);
 		}
 
 
@@ -59,11 +59,13 @@ namespace Yuna
 
 		void	Window::Clear(const sf::Color &tColor)
 		{
-			mWindow.clear(tColor);
+			mRenderTexture.clear(tColor);
 		}
 
 		void	Window::Render()
 		{
+			mRenderTexture.display();
+			mWindow.draw(sf::Sprite(mRenderTexture.getTexture()));
 			mWindow.display();
 		}
 
@@ -113,19 +115,19 @@ namespace Yuna
 
 		void	Window::SetView(sf::View tView)
 		{
-			mWindow.setView(tView);	
+			mRenderTexture.setView(tView);	
 		}
 
 		sf::View	Window::GetView()
 		{
-			return(mWindow.getView());
+			return(mRenderTexture.getView());
 		}
 
 		void	Window::SetDefaultView()
 		{
 			sf::View	defaultView;
-			defaultView = mWindow.getDefaultView();
-			mWindow.setView(defaultView);	
+			defaultView = mRenderTexture.getDefaultView();
+			mRenderTexture.setView(defaultView);	
 		}
 
 		void	Window::SetCursorVisibility(const bool &tVisibility)
@@ -137,9 +139,9 @@ namespace Yuna
 		void	Window::ResetView(bool tResize)
 		{
 			if (tResize)
-				mWindow.setView(sf::View(sf::Vector2f(mWindow.getSize().x / 2, mWindow.getSize().y / 2), sf::Vector2f(mWindow.getSize())));
+				mRenderTexture.setView(sf::View(sf::Vector2f(mWindow.getSize().x / 2, mWindow.getSize().y / 2), sf::Vector2f(mWindow.getSize())));
 			else
-				mWindow.setView(mWindow.getDefaultView());
+				mRenderTexture.setView(mRenderTexture.getDefaultView());
 		}
 	} // namespace core
 	

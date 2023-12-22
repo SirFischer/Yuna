@@ -12,6 +12,7 @@ namespace Yuna
 		{
 		private:
 			sf::RenderWindow	mWindow;
+			sf::RenderTexture	mRenderTexture;
 
 			std::string			mTitle = "Window title";
 			sf::Vector2i		mSize = sf::Vector2i(1600, 900);

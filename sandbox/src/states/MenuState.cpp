@@ -9,7 +9,7 @@ MenuState::MenuState(Yuna::Core::Window* tWindow)
 	bool *active = &mActive;
 	mf::GUI::AddWidget(mf::Button::Create()->SetClickEvent([active](){
 		*active = false;
-	})->SetPositionPercentage(true, false)->SetPosition(sf::Vector2f(45, 200)));
+	})->SetPositionPercentage(true, false)->SetPosition(sf::Vector2f(45, 200))->SetBackground(sf::Color::Green));
 }
 
 MenuState::~MenuState()
