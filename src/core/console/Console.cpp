@@ -52,7 +52,8 @@ namespace Yuna
 			->SetBackgroundColor(sf::Color(37, 37, 37, 200))
 			->SetOutlineColor(sf::Color(100, 100, 100, 255))->SetOutlineThickness(1)
 			->SetTextPosition(sf::Vector2f(5, 5))
-			->SetCharacterSize(14);
+			->SetCharacterSize(14)
+			->SetTextColor(sf::Color(255, 255, 255, 255));
 			mConsoleTextBox->GetScrollBar()->SetBackgroundColor(sf::Color(37, 37, 37, 200))
 			->GetButton()->SetBackground(sf::Color(160, 160, 160, 160));
 			mConsoleWidget->AddWidget(mConsoleTextBox);
@@ -65,6 +66,7 @@ namespace Yuna
 			->SetOutlineColor(sf::Color(100, 100, 100, 255))
 			->SetOutlineThickness(1)->SetCharacterSize(12)
 			->SetTextPosition(sf::Vector2f(5, 5))
+			->SetTextColor(sf::Color(255, 255, 255, 255))
 			->EnableEdit();
 			mConsoleWidget->AddWidget(mConsoleInputBox);
 		}
