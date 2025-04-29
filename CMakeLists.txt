@@ -72,10 +72,6 @@ add_custom_target(run_tests
     COMMENT "Running tests..."
 )
 
-# Configure sandbox if it exists
-if(EXISTS "${PROJECT_SOURCE_DIR}/sandbox/CMakeLists.txt")
-    add_subdirectory(sandbox)
-endif()
 
 # Installation rules
 install(TARGETS Yuna
