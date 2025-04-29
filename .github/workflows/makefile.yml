@@ -1,4 +1,4 @@
-name: Makefile CI
+name: CMake Ninja CI
 
 on:
   push:
@@ -8,13 +8,12 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
 
-    - name: Update
+    - name: Update package lists
       run: sudo apt update
 
     - name: Checkout submodules
@@ -23,14 +22,26 @@ jobs:
     - name: Install dependencies
       run: sudo apt install -y build-essential cmake ninja-build libsfml-dev libboost-container-dev
 
-    - name: Set SFML_DIR
-      run: echo "export SFML_DIR=/usr/lib/cmake/SFML" >> ~/.bashrc && source ~/.bashrc
+    - name: Set SFML_DIR environment variable
+      run: echo "SFML_DIR=/usr/lib/cmake/SFML" >> $GITHUB_ENV
 
-    - name: Generate Ninja for mfGUI
-      run: cd mfGUI && cmake -G Ninja && cd ..
+    - name: Build mfGUI library
+      run: |
+        mkdir -p mfGUI/build
+        cd mfGUI/build
+        cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Debug
+        ninja
 
-    - name: compilation
-      run: make
-      
-    - name: sandbox compilation
-      run: cd sandbox && make
+    - name: Build Yuna library
+      run: |
+        mkdir -p build
+        cd build
+        cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Debug
+        ninja
+
+    - name: Build Sandbox
+      run: |
+        mkdir -p sandbox/build
+        cd sandbox/build
+        cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Debug
+        ninja
