@@ -27,21 +27,17 @@ jobs:
 
     - name: Build mfGUI library
       run: |
-        mkdir -p mfGUI/build
-        cd mfGUI/build
-        cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Debug
+        cd mfGUI
+        cmake . -G Ninja -DCMAKE_BUILD_TYPE=Debug
         ninja
 
     - name: Build Yuna library
       run: |
-        mkdir -p build
-        cd build
-        cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Debug
+        cmake . -G Ninja -DCMAKE_BUILD_TYPE=Debug
         ninja
 
     - name: Build Sandbox
       run: |
-        mkdir -p sandbox/build
-        cd sandbox/build
-        cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Debug
+        cd sandbox
+        cmake . -G Ninja -DCMAKE_BUILD_TYPE=Debug
         ninja
