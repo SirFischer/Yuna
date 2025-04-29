@@ -33,3 +33,19 @@
 
 # Others
 sandbox/sandbox
+
+# Ninja files
+.ninja_deps
+.ninja_log
+build.ninja
+# Generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+CTestTestfile.cmake
+Makefile
+# Build directories
+/build*/
+/out/
+/cmake-build*/
