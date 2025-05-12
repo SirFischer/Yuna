@@ -18,9 +18,9 @@ namespace Yuna
 	namespace Core
 	{
 
-		mf::Container									*Console::mConsoleWidget = NULL;
-		mf::Text										*Console::mConsoleTextBox = NULL;
-		mf::Text										*Console::mConsoleInputBox = NULL;
+		std::shared_ptr<mf::Container>					Console::mConsoleWidget = NULL;
+		std::shared_ptr<mf::Text>						Console::mConsoleTextBox = NULL;
+		std::shared_ptr<mf::Text>						Console::mConsoleInputBox = NULL;
 		bool											Console::mProccessing = false;
 		std::deque<std::string>							Console::mHistory = std::deque<std::string>();
 		size_t											Console::mHistorySize = 20;
@@ -39,35 +39,42 @@ namespace Yuna
 		void		Console::InitUI()
 		{
 			mConsoleWidget = mf::Container::Create();
-			mConsoleWidget->SetDisabled(true)
-			->SetIndex(1)
-			->SetSizePercentage(true, false)->SetSize(100, 500);
-			mConsoleWidget->SetBackground(sf::Color(57, 57, 57, 200));
+			mConsoleWidget->SetDisabled(true);
+			mConsoleWidget->SetIndex(1);
+			mConsoleWidget->SetSizePercentage(true, false);
+			mConsoleWidget->SetSize(100, 500);
+			mConsoleWidget->GetBackground()->SetBackground(sf::Color(57, 57, 57, 200));
 			mf::GUI::AddWidget(mConsoleWidget);
 
 			mConsoleTextBox = mf::Text::Create();
-			mConsoleTextBox->SetSizePercentage(true, true)->SetSize(98, 85)
-			->SetTextFont("assets/fonts/FiraCode-VariableFont_wght.ttf")
-			->SetPositionPercentage(true, true)->SetPosition(1, 1)
-			->SetBackgroundColor(sf::Color(37, 37, 37, 200))
-			->SetOutlineColor(sf::Color(100, 100, 100, 255))->SetOutlineThickness(1)
-			->SetTextPosition(sf::Vector2f(5, 5))
-			->SetCharacterSize(14)
-			->SetTextColor(sf::Color(255, 255, 255, 255));
-			mConsoleTextBox->GetScrollBar()->SetBackgroundColor(sf::Color(37, 37, 37, 200))
-			->GetButton()->SetBackground(sf::Color(160, 160, 160, 160));
+			mConsoleTextBox->SetSizePercentage(true, true);
+			mConsoleTextBox->SetSize(98, 85);
+			mConsoleTextBox->GetText()->LoadFont("assets/fonts/FiraCode-VariableFont_wght.ttf");
+			mConsoleTextBox->SetPositionPercentage(true, true);
+			mConsoleTextBox->SetPosition(1, 1);
+			mConsoleTextBox->GetBackground()->SetBackground(sf::Color(37, 37, 37, 200));
+			mConsoleTextBox->GetBackground()->SetOutlineColor(sf::Color(100, 100, 100, 255));
+			mConsoleTextBox->GetBackground()->SetOutlineThickness(1);
+			mConsoleTextBox->GetText()->SetPos(sf::Vector2f(5, 5));
+			mConsoleTextBox->GetText()->SetSize(14);
+			mConsoleTextBox->GetText()->SetColor(sf::Color(255, 255, 255, 255));
+			mConsoleTextBox->GetScrollBar()->GetBackground()->SetBackground(sf::Color(37, 37, 37, 200));
+			mConsoleTextBox->GetScrollBar()->GetButton()->GetBackground()->SetBackground(sf::Color(160, 160, 160, 160));
 			mConsoleWidget->AddWidget(mConsoleTextBox);
 
 			mConsoleInputBox = mf::Text::Create();
-			mConsoleInputBox->SetSizePercentage(true, false)->SetSize(98, 30)
-			->SetTextFont("assets/fonts/FiraCode-VariableFont_wght.ttf")
-			->SetPositionPercentage(true, true)->SetPosition(1, 90)
-			->SetBackgroundColor(sf::Color(37, 37, 37, 200))
-			->SetOutlineColor(sf::Color(100, 100, 100, 255))
-			->SetOutlineThickness(1)->SetCharacterSize(12)
-			->SetTextPosition(sf::Vector2f(5, 5))
-			->SetTextColor(sf::Color(255, 255, 255, 255))
-			->EnableEdit();
+			mConsoleInputBox->SetSizePercentage(true, false);
+			mConsoleInputBox->SetSize(98, 30);
+			mConsoleInputBox->GetText()->LoadFont("assets/fonts/FiraCode-VariableFont_wght.ttf");
+			mConsoleInputBox->SetPositionPercentage(true, true);
+			mConsoleInputBox->SetPosition(1, 90);
+			mConsoleInputBox->GetBackground()->SetBackground(sf::Color(37, 37, 37, 200));
+			mConsoleInputBox->GetBackground()->SetOutlineColor(sf::Color(100, 100, 100, 255));
+			mConsoleInputBox->GetBackground()->SetOutlineThickness(1);
+			mConsoleInputBox->GetText()->SetSize(12);
+			mConsoleInputBox->GetText()->SetPos(sf::Vector2f(5, 5));
+			mConsoleInputBox->GetText()->SetColor(sf::Color(255, 255, 255, 255));
+			mConsoleInputBox->EnableEdit();
 			mConsoleWidget->AddWidget(mConsoleInputBox);
 		}
 
@@ -78,7 +85,7 @@ namespace Yuna
 			{
 				mHistoryIndex = -1;
 				mConsoleInputBox->SetFocus(true);
-				mConsoleInputBox->SetText("");
+				mConsoleInputBox->GetText()->SetString("");
 			}
 		}
 
@@ -188,19 +195,21 @@ namespace Yuna
 					default:
 					break;
 				}
-				mConsoleInputBox->SetText("");
+				mConsoleInputBox->GetText()->SetString("");
 				Console::AddString("");
 			}
 		}
 
 		void		Console::AddString(const std::string &tMessage)
 		{
-			mConsoleTextBox->AddText(tMessage + '\n');
+			if (mConsoleTextBox && mConsoleTextBox->GetText())
+				mConsoleTextBox->GetText()->AddString(tMessage + '\n');
 		}
 
 		void		Console::ClearConsole()
 		{
-			mConsoleTextBox->SetText("");
+			if (mConsoleTextBox && mConsoleTextBox->GetText())
+				mConsoleTextBox->GetText()->SetString("");
 		}
 
 		void		Console::ProcessConsoleCommand()
@@ -216,7 +225,7 @@ namespace Yuna
 			mHistoryIndex++;
 			if (mHistoryIndex >= (int)mHistory.size())
 				mHistoryIndex = mHistory.size() - 1;
-			mConsoleInputBox->SetText(mHistory[mHistoryIndex]);
+			mConsoleInputBox->GetText()->SetString(mHistory[mHistoryIndex]);
 		}
 
 		void Console::GetPreviousInCommandHistory()
@@ -226,7 +235,7 @@ namespace Yuna
 			mHistoryIndex--;
 			if (mHistoryIndex < 0)
 				mHistoryIndex = 0;
-			mConsoleInputBox->SetText(mHistory[mHistoryIndex]);
+			mConsoleInputBox->GetText()->SetString(mHistory[mHistoryIndex]);
 		}
 
 

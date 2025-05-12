@@ -51,9 +51,9 @@ namespace Yuna
 			/**
 			 * GUI
 			 **/
-			static mf::Container *mConsoleWidget;
-			static mf::Text *mConsoleTextBox;
-			static mf::Text *mConsoleInputBox;
+			static std::shared_ptr<mf::Container>  mConsoleWidget;
+			static std::shared_ptr<mf::Text> mConsoleTextBox;
+			static std::shared_ptr<mf::Text> mConsoleInputBox;
 
 			/**
 			 * Data
