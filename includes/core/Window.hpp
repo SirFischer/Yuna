@@ -39,8 +39,8 @@ namespace Yuna
 			void			Draw(sf::Vertex *tVertex, size_t tSize, sf::PrimitiveType tType);
 			void			Clear();
 			void			Clear(const sf::Color &tColor);
-			void			Render();
-			void			Render(sf::Shader *tShader);
+			void			Display();
+			void			Display(sf::Shader *tShader);
 
 			/**
 			 * Events

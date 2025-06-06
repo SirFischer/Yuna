@@ -63,12 +63,12 @@ namespace Yuna
 			mWindow.clear(tColor);
 		}
 
-		void	Window::Render()
+		void	Window::Display()
 		{
 			mWindow.display();
 		}
 
-		void	Window::Render(sf::Shader *tShader)
+		void	Window::Display(sf::Shader *tShader)
 		{
 			mTexture.update(mWindow);
 			mSprite.setTexture(mTexture);
