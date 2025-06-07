@@ -7,9 +7,15 @@ MenuState::MenuState(Yuna::Core::Window* tWindow)
 	mStateAction = Yuna::Core::eStateControls::EXIT;
 	mf::GUI::ClearWidgets();
 	bool *active = &mActive;
-	mf::GUI::AddWidget(mf::Button::Create()->SetClickEvent([active](){
+	auto button = mf::Button::Create();
+	button->SetClickEvent([active](){
 		*active = false;
-	})->SetPositionPercentage(true, false)->SetPosition(sf::Vector2f(45, 200))->SetBackground(sf::Color::Green));
+		std::cout << "Button clicked, exiting menu state" << std::endl;
+	});
+	button->SetPositionPercentage(true, false);
+	button->SetPosition(sf::Vector2f(45, 100));
+	button->GetBackground()->SetBackground(sf::Color::Red);
+	mf::GUI::AddWidget(button);
 }
 
 MenuState::~MenuState()
@@ -40,5 +46,5 @@ void	MenuState::Render()
 {
 	mWindow->Clear();
 	mf::GUI::Render();
-	mWindow->Render();
+	mWindow->Display();
 }

@@ -36,5 +36,5 @@ void	SplashState::Update()
 void	SplashState::Render()
 {
 	mWindow->Clear();
-	mWindow->Render();
+	mWindow->Display();
 }
