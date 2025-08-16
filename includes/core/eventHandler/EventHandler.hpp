@@ -34,6 +34,8 @@ namespace Yuna
 			tBindingMapList	mBindingMap;
 			tBindingNames	mBindingNames;
 
+			sf::Vector2f	mMousePosition;
+
 			void			InitBindingNames();
 
 			void			ClearEventBinding(uint32_t pEvent);
@@ -50,6 +52,7 @@ namespace Yuna
 			void			BindWheelUp(uint32_t pEvent);
 			void			SetEventState(uint32_t pEvent, bool tState);
 			bool			GetEventState(uint32_t pEvent);
+			sf::Vector2f	GetMousePosition() const { return mMousePosition; }
 
 			tBindingMapList	GetBindingMap(){ return (mBindingMap); }
 			tBindingNames	GetBindingNames(){ return (mBindingNames); }

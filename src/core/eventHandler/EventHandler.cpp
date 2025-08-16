@@ -49,6 +49,8 @@ namespace Yuna
 			 	if (mBindingMap.count(EVENTHANDLER_WHEEL_OFFSET + pEvent.mouseWheelScroll.delta))
 			 		mEventStates[mBindingMap[EVENTHANDLER_WHEEL_OFFSET + pEvent.mouseWheelScroll.delta]] = true;
 			 	break;
+			case sf::Event::MouseMoved:
+				mMousePosition = { (float)pEvent.mouseMove.x, (float)pEvent.mouseMove.y };
 			default:
 				break;
 			}
