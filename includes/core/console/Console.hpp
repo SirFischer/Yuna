@@ -96,6 +96,7 @@ namespace Yuna
 	 		* GETTERS
 	 		**/
 			static std::map<std::string, sCommand> &GetCommands() { return (mCommands); }
+			static const std::deque<std::string> &GetHistory() { return (mHistory); }
 			static bool IsOpen() { return (!mConsoleWidget->IsDisabled()); }
 
 
